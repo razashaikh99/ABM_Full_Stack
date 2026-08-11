@@ -1,0 +1,242 @@
+AlBayt-Mart Website Documentation --
+Pages Structure --
+
+1. Home Page
+    1. Top Bar
+        o Phone No
+        o Email Address
+    2. Navbar (Header)
+        o Logo (AlBayt Mart)
+        o Navigation links (Home, Shop, Categories, About, Contact)
+        o Icons (Wishlist, Add to Cart)
+    3. Hero Section / Banner
+        o Carousel Image
+    4. Categories Section
+        1. Drinkware Collection
+            o Water Bottles, Flasks, Stanley Bottles, Travel Mugs
+        2. Appliances & Machines
+            o Waffle Maker, Sandwich Maker, Juicer, Blender
+        3. Cooking Essentials
+            o Frying Pans, Pots, Pressure Cookers, Nonstick Sets
+        4. Storage & Containers
+            o Food Storage Boxes, Lunch Boxes, Jars, Organizers
+        5. Serve ware & Tableware
+            o Plates, Bowls, Glass Sets, Cutlery, Trays
+        6. Cleaning & Utility
+            o Brushes, Sponges, Dish Racks, Utility Tools
+        7. Kitchen Accessories (optional)
+            o Measuring Cups, Cutting Boards, Graters, Peelers
+    5. Featured Products / Best Sellers
+        o Product cards (Image, Name, Price, Add to Cart)
+        o “View All” button linking to Shop page
+    6. New Arrivals Section
+        o Latest products recently added to store
+        o “See More” button
+    7. Why Choose Us / Services Section
+        o Show trust-building points like:
+        o Fast Delivery
+        o Fresh & Organic Products
+        o Secure Payments
+        o 24/7 Support
+    8. Customer Testimonials
+        o 3–4 customer reviews with stars and profile pictures
+    9. Newsletter Signup
+        o Short text + email input + “Subscribe” button
+    10. Footer
+        o Company info
+        o Quick links (Shop, About, Contact, FAQs)
+        o Social media icons
+        o Copyright text
+
+2. Authentication
+    1. Login Page
+        o Title: “Login to Your Account”
+        o Input Fields:
+            o Email Address
+            o Password
+        o Options:
+            o Link: “Forgot Password?”
+        o Button: Login
+        o Link: “Don’t have an account? [Register Now]”
+    2. Register Page
+        o Title: “Create Your Account”
+        o Input Fields:
+            o Full Name
+            o Email Address
+            o Phone Number
+            o City
+            o Create Password
+            o Confirm Password
+        o Button: Register
+        o Link: “Already have an account? [Login Here]”
+    3. Forgot Password Page
+        o Title: “Forgot Password?”
+        o Input Field: Email Address
+        o Button: Send Reset Link
+        o Info Text: “You’ll receive a reset link via email.”
+
+3. Shop Page
+    1. Page Header / Breadcrumb
+        o Title: “Shop”
+        o Breadcrumb example: Home / Shop
+    2. Filter & Search Bar
+        o Search Input → search by product name
+        o Dropdown Filters →
+        o Category (Drinkware, Appliances, Cooking Essentials, etc.)
+        o Sort By → Newest / Price Low-High / High-Low / Popular
+    3. Product Grid Section
+        o Responsive grid layout
+        o Each Product Card includes:
+        o Product Image
+        o Product Name
+        o Product Description
+        o Price
+        o “Add to Cart” button
+        o Optional: Wishlist heart icon ❤️
+
+4. Product Details Page
+    1. Breadcrumb Navigation
+        o Example: Home / Shop / Drinkware / Stanley Bottle
+            o Helps users go back to categories or shop easily
+    2. Product Overview Section (Main Highlight Area)
+        o Left Side:
+            o Product Image Gallery (main image + small thumbnails for alternate views)
+            o Optional: Zoom on hover or lightbox view
+        o Right Side:
+            o Product Title
+            o Short Description
+            o Price (with discount if applicable)
+            o Availability (In Stock / Out of Stock)
+            o Quantity Selector (+ / -)
+            o Add to Cart button
+            o Add to Wishlist button ❤️
+            o Category tag (e.g., “Drinkware”)
+    3. Product Description Tabs
+        o Tabs section (below main area) with:
+            o Description: detailed info (material, dimensions, features, etc.)
+            o Specifications: technical details or product highlights
+    4. Related Products Section
+        o Title: “You May Also Like” or “Related Products”
+        o Grid of 4–6 products from the same category
+        o Each product card with image, name, price, and “Add to Cart”
+
+5. Add to Cart
+    1. Right Side – SideBar
+        o Product
+            o Image
+            o Title
+            o Price
+            o Quantity
+            o Remove Product Icon
+        o Invoice Total Price
+        o Delivery Price
+        o Checkout Button
+
+6. Checkout Page
+    1. Breadcrumb Navigation
+        o Example: “Home / Cart / Checkout”
+            o Helps user track purchase progress.
+    2. Checkout Steps Layout (Billing Details)
+        o A 2-column layout — Left: Billing Details, Right: Order Summary
+    3. Left Side – Customer & Shipping Details
+        o Full Name
+        o Email Address
+        o Phone Number
+        o Street Address
+        o City
+        o Country (Pakistan)
+        o Postal Code / ZIP Code
+        o Province / Region
+    4. Right Side – Order Summary Section
+        o Product Image
+        o Product Name
+        o Product Price
+        o Quantity Selector (+ / – buttons)
+        o Remove Product
+        o Invoice Total: shows subtotal of all items
+        o Delivery Charges: fixed amount
+        o Tax & Cash Handling Fee (4%)
+        o Net Total: Total payable amount (bold and highlighted)
+        o Place Order Button
+            o On click → redirects to Order Confirmation Page
+
+7. Order Confirmation Page
+    1. Success Message -
+        o “🎉 Thank You! Your order has been placed successfully.”
+        o “Your order ID is: #ALB-12345.”
+    2. Order Summary Box
+        o Product names + quantities + total amount
+        o Payment Method: Cash on Delivery
+        o Delivery Info: Expected in 3–5 working days
+    3. Buttons / Actions
+        o “Continue Shopping” → goes back to Shop page
+
+8. Contact Us Page
+    1. Breadcrumb Navigation
+        o Example: “Home / Contact Us”
+    2. Contact Information Section (Left Side)
+        o Company Details:
+            o Address: e.g, AlBayt Mart, Karachi, Pakistan
+            o Phone: +92-329-8660141
+            o Email: info.albaytmart@gmail.com
+            o Working Hours: Mon–Sat: 10 AM – 8 PM
+        o Social Media Links (Icons):
+            o Facebook
+            o Instagram
+            o WhatsApp
+            o Email
+    3. Contact Form Section (Right Side)
+        o Form Fields:
+            o Full Name
+            o Email Address
+            o Phone Number (optional)
+            o Subject
+            o Message / Inquiry
+            o Buttons: Submit Message
+        o Google Map Section
+
+9. About Us Page
+    1. Breadcrumb Navigation
+        o Example: “Home / About Us”
+    2. Paragraph 1 → Who you are:
+    3. Paragraph 2 → Vision & mission:
+    4. Why Choose Us / Our Core Values Section
+        o Show 3–4 Cards with Icons:
+            o Fast & Reliable Delivery
+            o High-Quality Products
+            o Secure Payments
+            o Customer Satisfaction Guaranteed
+    5. Call-to-Action (CTA) Section
+
+10. Return and Refund Policy
+    1. Return Process
+    2. Refund Process
+    3. Exchange Policy
+    4. Contact Info
+
+----------------------------------------------------------------------
+
+Frontend Essential Libraries ---
+
+1. React Router DOM – for page navigation
+-- npm install react-router-dom
+2. React Icons – for icons (cart, user, social icons, etc.)
+-- npm install react-icons
+3. React Toastify – for notifications (e.g., “Item added to cart!”)
+-- npm install react-toastify
+4. Axios – for API requests (products, auth, etc.)
+-- npm install axios
+5. UUID – for unique product IDs or cart items
+-- npm install uuid
+6. Framer Motion – for smooth animations (cards, transitions)
+-- npm install framer-motion
+7. React Slick – for sliders / carousels (e.g., Hero section or testimonials)
+-- npm install react-slick slick-carousel
+8. Formik + Yup – for form handling and validation (Login, Register, Checkout)
+-- npm install formik yup
+9. React Helmet – for dynamic page titles and SEO
+-- npm install react-helmet
+10. clsx – for conditional Tailwind class management
+-- npm install clsx
+
+----------------------------------------------------------------------

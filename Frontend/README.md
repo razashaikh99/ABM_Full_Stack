@@ -1,0 +1,98 @@
+ALBAYT_MART - Folder Structure
+│
+├── public/
+│   ├── favicon.ico
+│   ├── Logo
+│   │   ├── logo1.jpg
+│   │   ├── logo2.jpg
+│   ├── BannerImages/
+│   │   ├── hero1.jpg
+│   │   ├── hero2.jpg
+│   ├── ProductsImages/
+│   │   ├── drinkware/
+│   │   ├── appliances/
+│   │   ├── cookware/
+│   │   └── storage/
+│
+├── src/
+│   ├── assets/
+│   │   ├── images/
+│   │   ├── icons/
+│
+│   ├── Components/
+│   │   ├── Common/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── TopBar.jsx
+│   │   │   ├── Newsletter.jsx
+│   │   │   ├── Breadcrumb.jsx
+│   │   │   └── Loader.jsx
+│   │   │
+│   │   ├── Home/
+│   │   │   ├── HeroSection.jsx
+│   │   │   ├── Categories.jsx
+│   │   │   ├── FeaturedProducts.jsx
+│   │   │   ├── NewArrivals.jsx
+│   │   │   ├── WhyChooseUs.jsx
+│   │   │   ├── Testimonials.jsx
+│   │   │   └── Services.jsx
+│   │   │
+│   │   ├── Shop/
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── FilterBar.jsx
+│   │   │   └── SortDropdown.jsx
+│   │   │
+│   │   ├── Cart/
+│   │   │   ├── CartSidebar.jsx
+│   │   │   └── CartItem.jsx
+│   │   │
+│   │   ├── Checkout/
+│   │   │   ├── BillingForm.jsx
+│   │   │   └── OrderSummary.jsx
+│   │   │
+│   │   ├── Contact/
+│   │   │   ├── ContactForm.jsx
+│   │   │   └── ContactInfo.jsx
+│   │   │
+│   │   └── Auth/
+│   │       ├── LoginForm.jsx
+│   │       ├── RegisterForm.jsx
+│   │       └── ForgotPasswordForm.jsx
+│
+│   ├── Pages/
+│   │   ├── Home.jsx
+│   │   ├── Shop.jsx
+│   │   ├── ProductDetails.jsx
+│   │   ├── Checkout.jsx
+│   │   ├── OrderConfirmation.jsx
+│   │   ├── ContactUs.jsx
+│   │   ├── AboutUs.jsx
+│   │   ├── ReturnRefundPolicy.jsx
+│   │   └── Auth.jsx
+│
+│   ├── Context/
+│   │   ├── CartContext.jsx
+│   │   ├── AuthContext.jsx
+│   │   └── ProductContext.jsx
+│
+│   ├── Data/
+│   │   ├── categories.js
+│   │   ├── products.js
+│   │   └── testimonials.js
+│
+│   ├── Hooks/
+│   │   └── useCart.js
+│
+│   ├── Utils/
+│   │   ├── constants.js
+│   │   ├── formatCurrency.js
+│   │   └── validations.js
+│
+│   ├── Styles/
+│   │   ├── Tailwind.css
+│
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── router.jsx
+│
+└── package.json
