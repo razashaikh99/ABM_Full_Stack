@@ -3,10 +3,15 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
 
 const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
+    const { login } = useAuth();
 
     // ✅ Validation Schema
     const validationSchema = Yup.object({
@@ -25,10 +30,37 @@ const RegisterForm = () => {
     });
 
     // ✅ Handle Submit
-    const handleSubmit = (values, { resetForm }) => {
-        console.log("Registration Data:", values);
-        toast.success("Account Created Successfully!");
-        resetForm();
+    const handleSubmit = async (values, { resetForm }) => {
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: values.name,
+                    email: values.email,
+                    password: values.password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Registration failed");
+            }
+
+            login(data.user, data.token);
+            toast.success("Account created successfully!");
+            resetForm();
+            navigate("/");
+        } catch (error) {
+            toast.error(error.message || "Registration failed");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -129,9 +161,10 @@ const RegisterForm = () => {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-secondary text-foreground py-3 rounded-lg font-medium hover:bg-primary transition-all cursor-pointer"
+                        disabled={isSubmitting}
+                        className="w-full bg-secondary text-foreground py-3 rounded-lg font-medium hover:bg-primary transition-all cursor-pointer disabled:opacity-70"
                     >
-                        Create Account
+                        {isSubmitting ? "Creating Account..." : "Create Account"}
                     </button>
                 </Form>
             </Formik>
