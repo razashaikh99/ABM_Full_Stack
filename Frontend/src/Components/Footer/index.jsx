@@ -11,7 +11,7 @@ const Footer = () => {
     const { currentYear } = useFooter();
 
     return (
-        <footer className="bg-[var(--color-foreground)] text-[var(--color-accent)] border-t border-gray-200 pt-12 pb-6">
+        <footer className="bg-foreground text-accent border-t border-gray-200 pt-12 pb-6">
             <div className="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
 
                 <div>
@@ -53,7 +53,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-[var(--color-accent)] mb-4">
+                    <h3 className="text-lg font-semibold text-accent mb-4">
                         PRODUCTS
                     </h3>
                     <ul className="space-y-2 text-gray-600">
@@ -81,7 +81,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-[var(--color-accent)] mb-4">
+                    <h3 className="text-lg font-semibold text-accent mb-4">
                         WEBSITE
                     </h3>
                     <ul className="space-y-2 text-gray-600">
@@ -112,7 +112,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-[var(--color-accent)] mb-4">
+                    <h3 className="text-lg font-semibold text-accent mb-4">
                         CONTACT
                     </h3>
                     <ul className="space-y-3 text-gray-600 text-sm">

@@ -3,8 +3,7 @@ import { FiPhone, FiMail } from "react-icons/fi";
 const TopBar = () => {
     return (
         <div
-            className="flex items-center justify-between px-2 md:px-35 py-3 text-[12px] md:text-sm"
-            style={{ backgroundColor: "var(--color-accent)", color: "var(--color-foreground)" }}
+            className="flex items-center justify-between px-2 md:px-35 py-3 text-[12px] md:text-sm bg-accent text-foreground"
         >
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">

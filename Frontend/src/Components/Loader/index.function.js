@@ -4,10 +4,6 @@ export default function useLoader({ fullScreen = false, size = 3 }) {
     const spinnerStyle = {
         width: px,
         height: px,
-        borderWidth: "4px",
-        borderStyle: "solid",
-        borderColor: "rgba(0,0,0,0.08)",
-        borderTopColor: "var(--color-secondary)",
     };
 
     const wrapperClass = fullScreen

@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
 
-      <div className="min-h-screen flex flex-col bg-[var(--color-foreground)] text-[var(--color-accent)]">
+      <div className="min-h-screen flex flex-col bg-foreground text-accent">
 
         <TopBar />
         <Navbar />
