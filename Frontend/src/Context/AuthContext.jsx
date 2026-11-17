@@ -1,9 +1,5 @@
-// src/Context/AuthContext.jsx
-import React, { createContext, useState, useContext, useEffect } from "react";
-
-const AuthContext = createContext();
-
-export const useAuth = () => useContext(AuthContext);
+import { useState, useEffect } from "react";
+import { AuthContext } from "./auth.context";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);

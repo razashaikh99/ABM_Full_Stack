@@ -11,6 +11,7 @@ This is the frontend of the AlBayt Mart e-commerce project. It is built with Rea
 - Authentication UI pages for login, register, and forgot password
 - Responsive design for desktop and mobile devices
 - Toast notifications and smooth animations
+- Responsive Hero and New Arrivals carousels using React Slick
 - Route-based navigation using React Router
 
 ## Tech Stack
@@ -30,23 +31,25 @@ The frontend project is organized as follows:
 
 ```text
 Frontend/
-├── public/                  # Static assets such as logos, banners, and product images
-│   ├── Logo/
-│   ├── BannerImages/
-│   └── ProductsImages/
+├── public/                  # Files served directly without bundling
 ├── src/                     # Main source code of the application
+│   ├── assets/images/       # All images and their central named exports in index.js
 │   ├── Components/          # Reusable UI components
-│   │   ├── Auth/            # Login, register, and forgot password forms
-│   │   ├── Cart/            # Cart sidebar and cart item UI
-│   │   ├── Checkout/        # Billing and order summary components
-│   │   ├── Common/          # Navbar, footer, top bar, loader, etc.
-│   │   ├── Contact/         # Contact form and contact details
-│   │   └── Home/            # Homepage sections such as hero, categories, products
+│   │   └── <Component>/    # One folder per global component
+│   │       ├── index.jsx          # UI
+│   │       └── index.function.js  # Component logic
 │   ├── Context/             # React context providers for auth, cart, and products
-│   ├── Data/                # Static data such as products, categories, and testimonials
+│   ├── config/              # Static datasets, page defaults, and carousel settings
 │   ├── Hooks/               # Custom hooks like useCart
-│   ├── Pages/               # Main pages of the app
-│   ├── Styles/              # Global styling files
+│   ├── Pages/               # Each page has its own folder
+│   │   ├── Checkout/components/  # Billing form and order summary
+│   │   ├── ContactUs/components/ # Contact form and contact details
+│   │   ├── Shop/components/      # Product card, filters, and sorting
+│   │   └── Home/            # Same page structure applies to other pages
+│   │       ├── components/       # Home sections and carousel
+│   │       ├── index.jsx          # UI and presentation
+│   │       └── index.function.js  # Page hook, state, and event handlers
+│   ├── App.css              # Tailwind theme and global styling
 │   ├── Utils/               # Utility helpers and formatting functions
 │   ├── App.jsx              # Main app layout
 │   ├── AppRouter.jsx        # Route definitions
@@ -54,6 +57,10 @@ Frontend/
 ├── package.json             # Project dependencies and scripts
 └── README.md                # Project documentation
 ```
+
+Each page renders its UI in `index.jsx` and reads state and event handlers from
+`index.function.js`. Static arrays, page defaults, and carousel settings are
+exported directly from `src/config/index.js`, including all homepage datasets.
 
 ## Installation
 

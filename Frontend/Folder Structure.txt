@@ -88,8 +88,7 @@ albayt-mart/
 │   │   ├── formatCurrency.js
 │   │   └── validations.js
 │
-│   ├── Styles/
-│   │   ├── Tailwind.css
+│   ├── App.css
 │
 │   ├── App.jsx
 │   ├── main.jsx

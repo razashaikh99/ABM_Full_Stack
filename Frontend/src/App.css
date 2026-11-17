@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #003B63;
+    --color-secondary: #FF841A;
+    --color-accent: #19212A;
+    --color-foreground: #FFFFFF;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: "Inter", sans-serif;
+}
+
+.slick-slide {
+    padding: 0 10px;
+}
+
+.slick-list {
+    margin: 0 -10px;
+}
+
+.carousel-hero .slick-slide {
+    padding: 0;
+}
+
+.carousel-hero .slick-list {
+    margin: 0;
+}
+
+.carousel-hero .slick-dots {
+    bottom: 20px;
+}
+
+.carousel-hero .slick-dots li button:before {
+    color: white;
+    font-size: 12px;
+}
+
+.carousel-products {
+    padding-bottom: 24px;
+}
+
+.carousel-products .slick-track {
+    display: flex;
+}
+
+.carousel-products .slick-slide {
+    height: auto;
+}
+
+.carousel-products .slick-slide > div {
+    height: 100%;
+}
+
+.carousel-products .slick-dots {
+    bottom: -4px;
+}
+
+@media (max-width: 640px) {
+    .slick-slide {
+        padding: 0 5px;
+    }
+
+    .slick-list {
+        margin: 0 -5px;
+    }
+}

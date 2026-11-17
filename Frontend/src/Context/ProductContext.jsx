@@ -1,34 +1,26 @@
-// src/Context/ProductContext.jsx
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
-import products from "../Data/products";
-
-const ProductContext = createContext();
-
-export const useProducts = () => useContext(ProductContext);
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { products } from "../config/index";
+import { ProductContext } from "./product.context";
 
 export const ProductProvider = ({ children }) => {
     const [allProducts, setAllProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 20; // ✅ Pagination add ki hai
+    const productsPerPage = 20;
 
-    // ✅ Initial load - useMemo se avoid unnecessary recalculations
     useEffect(() => {
         setAllProducts(products);
         setFilteredProducts(products);
     }, []);
 
-    // ✅ Paginated products - useMemo se optimize
     const paginatedProducts = useMemo(() => {
         return filteredProducts.slice(0, currentPage * productsPerPage);
     }, [filteredProducts, currentPage]);
 
-    // ✅ Load more products function
     const loadMoreProducts = useCallback(() => {
         setCurrentPage(prev => prev + 1);
     }, []);
 
-    // ✅ Filter function ko useCallback se optimize
     const filterByCategory = useCallback((category) => {
         if (category === "all") {
             setFilteredProducts(allProducts);
@@ -37,10 +29,9 @@ export const ProductProvider = ({ children }) => {
                 allProducts.filter((item) => item.category === category)
             );
         }
-        setCurrentPage(1); // ✅ Filter karne pe page reset
+        setCurrentPage(1);
     }, [allProducts]);
 
-    // ✅ Sort function ko useCallback se optimize
     const sortProducts = useCallback((type) => {
         const sorted = [...filteredProducts];
         if (type === "price-asc") sorted.sort((a, b) => a.price - b.price);
@@ -48,20 +39,18 @@ export const ProductProvider = ({ children }) => {
         setFilteredProducts(sorted);
     }, [filteredProducts]);
 
-    // ✅ Get product by ID - useCallback se optimize
     const getProductById = useCallback((id) => {
         return allProducts.find(product => product.id === id);
     }, [allProducts]);
 
-    // ✅ Context value ko useMemo se optimize
     const contextValue = useMemo(() => ({
         allProducts,
-        filteredProducts: paginatedProducts, // ✅ Only paginated products return karein
+        filteredProducts: paginatedProducts,
         filterByCategory,
         sortProducts,
         getProductById,
         loadMoreProducts,
-        hasMoreProducts: paginatedProducts.length < filteredProducts.length // ✅ Check if more products available
+        hasMoreProducts: paginatedProducts.length < filteredProducts.length
     }), [allProducts, paginatedProducts, filteredProducts, filterByCategory, sortProducts, getProductById, loadMoreProducts]);
 
     return (
