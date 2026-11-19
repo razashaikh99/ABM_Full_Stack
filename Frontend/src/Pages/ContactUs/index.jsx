@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { contactPageConfig } from "../../config/index";
 import useContactUsPage from "./index.function";
 import ContactForm from "./components/ContactForm";
@@ -65,23 +66,23 @@ const ContactUs = () => {
             <div className="lg:hidden bg-white border-t">
                 <div className="container mx-auto px-4 py-6">
                     <div className="grid grid-cols-2 gap-4">
-                        <a
-                            href="tel:+923001234567"
+                        <Link reloadDocument
+                            to="tel:+923001234567"
                             className="bg-green-50 text-green-700 p-3 rounded-lg text-center"
                         >
                             <div className="text-lg font-bold">📞 Call Now</div>
 
                             <div className="text-[12px]">+92-329-8660141</div>
-                        </a>
+                        </Link>
 
-                        <a
-                            href="mailto:info.albaytmart@gmail.com"
+                        <Link reloadDocument
+                            to="mailto:info.albaytmart@gmail.com"
                             className="bg-orange-50 text-secondary p-3 rounded-lg text-center"
                         >
                             <div className="text-lg font-bold">📧 Email</div>
 
                             <div className="text-[12px] truncate">info.albaytmart@gmail.com</div>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

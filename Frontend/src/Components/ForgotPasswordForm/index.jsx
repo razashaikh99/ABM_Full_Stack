@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useForgotPasswordForm from "./index.function";
 import { forgotPasswordFormDefaults } from "../../config/index";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -50,9 +51,9 @@ const ForgotPasswordForm = () => {
 
             <p className="text-center text-sm mt-6 text-accent">
                 Remember your password?{" "}
-                <a href="/login" className="text-secondary font-medium hover:underline">
+                <Link to="/login" className="text-secondary font-medium hover:underline">
                     Back to Login
-                </a>
+                </Link>
             </p>
         </div>
     );

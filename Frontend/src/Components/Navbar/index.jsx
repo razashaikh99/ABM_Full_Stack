@@ -1,7 +1,7 @@
 import useNavbar from "./index.function";
 import { logo } from "../../assets/images/index";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FiShoppingCart, FiHeart, FiUser, FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 
 const NavItem = ({ to, children, onClick }) => (
@@ -205,7 +205,7 @@ const Navbar = () => {
                         <p className="text-sm text-gray-600 pb-2">
                             Need help? Call us:
                         </p>
-                        <a href="tel:+923298660141" className="font-semibold text-primary hover:underline">+92-329-8660141</a>
+                        <Link reloadDocument to="tel:+923298660141" className="font-semibold text-primary hover:underline">+92-329-8660141</Link>
                     </div>
                 </div>
             </div>

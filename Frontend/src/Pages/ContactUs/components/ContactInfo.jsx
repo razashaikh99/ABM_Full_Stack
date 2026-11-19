@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { contactInfoItems as infoItems } from "../../../config/index";
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 
@@ -23,12 +24,12 @@ const ContactInfo = () => {
                         <div className="flex-1">
                             <h4 className="text-base sm:text-lg font-medium mb-1">{item.title}</h4>
                             {item.link ? (
-                                <a
-                                    href={item.link}
+                                <Link reloadDocument
+                                    to={item.link}
                                     className="text-white hover:text-gray-200 transition-colors"
                                 >
                                     <p className="text-sm sm:text-base font-light">{item.detail}</p>
-                                </a>
+                                </Link>
                             ) : (
                                 <p className="text-sm sm:text-base font-light">{item.detail}</p>
                             )}
@@ -41,30 +42,30 @@ const ContactInfo = () => {
                 <p className="text-gray-100 mb-3 text-sm sm:text-base">Follow us on social media:</p>
                 <div className="flex gap-3">
                     <div className="flex space-x-3">
-                        <a
-                            href="#"
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 hover:bg-secondary hover:text-white transition"
                         >
                             <FaFacebookF />
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 hover:bg-secondary hover:text-white transition"
                         >
                             <FaInstagram />
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 hover:bg-secondary hover:text-white transition"
                         >
                             <FaTwitter />
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 hover:bg-secondary hover:text-white transition"
                         >
                             <FaLinkedinIn />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

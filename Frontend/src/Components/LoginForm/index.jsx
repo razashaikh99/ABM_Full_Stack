@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useLoginForm from "./index.function";
 import { loginFormDefaults } from "../../config/index";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -64,12 +65,12 @@ const LoginForm = () => {
                     </div>
 
                     <div className="text-right">
-                        <a
-                            href="/forgot"
+                        <Link
+                            to="/forgot"
                             className="text-sm text-secondary hover:underline"
                         >
                             Forgot Password?
-                        </a>
+                        </Link>
                     </div>
 
                     <button
@@ -84,9 +85,9 @@ const LoginForm = () => {
 
             <p className="text-center text-sm mt-6 text-accent">
                 Don’t have an account?{" "}
-                <a href="/register" className="text-secondary font-medium hover:underline">
+                <Link to="/register" className="text-secondary font-medium hover:underline">
                     Register
-                </a>
+                </Link>
             </p>
         </div>
     );

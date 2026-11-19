@@ -25,30 +25,30 @@ const Footer = () => {
                     </p>
 
                     <div className="flex space-x-3">
-                        <a
-                            href="#"
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-secondary hover:text-white transition"
                         >
                             <FaFacebookF />
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-secondary hover:text-white transition"
                         >
                             <FaInstagram />
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-secondary hover:text-white transition"
                         >
                             <FaTwitter />
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            to="#"
                             className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-secondary hover:text-white transition"
                         >
                             <FaLinkedinIn />
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

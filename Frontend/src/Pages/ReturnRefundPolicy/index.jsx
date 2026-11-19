@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { returnPolicyConfig } from "../../config/index";
 
 const ReturnRefundPolicy = () => {
@@ -76,12 +77,12 @@ const ReturnRefundPolicy = () => {
                     <p className="mb-6">
                         To initiate a return or refund, please contact our customer support
                         at{" "}
-                        <a
-                            href="mailto:info.albaytmart@gmail.com"
+                        <Link reloadDocument
+                            to="mailto:info.albaytmart@gmail.com"
                             className="text-secondary font-medium underline"
                         >
                             info.albaytmart@gmail.com
-                        </a>{" "}
+                        </Link>{" "}
                         with your order details, product image, and reason for return.
                     </p>
 
@@ -92,12 +93,12 @@ const ReturnRefundPolicy = () => {
                     <p>
                         If you have any questions about our Return & Refund Policy, please
                         reach out to us at{" "}
-                        <a
-                            href="mailto:help@albaytmart.com"
+                        <Link reloadDocument
+                            to="mailto:help@albaytmart.com"
                             className="text-secondary font-medium underline"
                         >
                             info.albaytmart@gmail.com
-                        </a>
+                        </Link>
                         .
                     </p>
                 </div>

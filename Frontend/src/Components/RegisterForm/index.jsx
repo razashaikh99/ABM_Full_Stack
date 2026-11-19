@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useRegisterForm from "./index.function";
 import { registerFormDefaults } from "../../config/index";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -114,9 +115,9 @@ const RegisterForm = () => {
 
             <p className="text-center text-sm mt-6 text-accent">
                 Already have an account?{" "}
-                <a href="/login" className="text-secondary font-medium hover:underline">
+                <Link to="/login" className="text-secondary font-medium hover:underline">
                     Login
-                </a>
+                </Link>
             </p>
         </div>
     );
