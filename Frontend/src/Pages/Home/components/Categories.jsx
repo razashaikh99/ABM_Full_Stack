@@ -1,48 +1,35 @@
-import { homeCategories as categories } from "../../../config/index";
-import { motion as Motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { homeCategories } from "../../../config";
 
-const Categories = () => {
-
+export default function Categories() {
     return (
-        <section className="py-16 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
-
-                <div className="text-center mb-10">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-                        Shop by Category
-                    </h2>
-                    <p className="text-gray-600 text-lg">
-                        Explore premium kitchen essentials for your home
-                    </p>
+        <section className="page-width section-space">
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <p className="eyebrow mb-3">A PLACE FOR EVERYTHING</p>
+                    <h2 className="section-title">Find your everyday.</h2>
                 </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-5">
-                    {categories.map((cat) => (
-                        <Motion.div
-                            key={cat.id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            viewport={{ once: true }}
-                            className="relative group overflow-hidden rounded-2xl shadow-lg bg-white cursor-pointer"
-                        >
+                <Link to="/shop" className="text-link">
+                    Shop all essentials
+                </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-6">
+                {homeCategories.map((category) => (
+                    <Link key={category.id} to={category.to || "/shop"} className="group">
+                        <div className="mb-4 aspect-[1/1] overflow-hidden rounded-sm bg-surface">
                             <img
-                                src={cat.image}
-                                alt={cat.name}
-                                className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
+                                src={category.image}
+                                alt={category.name}
+                                loading="lazy"
+                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
-
-                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                                <h3 className="text-white text-xl font-semibold tracking-wide">
-                                    {cat.name}
-                                </h3>
-                            </div>
-                        </Motion.div>
-                    ))}
-                </div>
+                        </div>
+                        <h3 className="text-sm font-medium text-primary group-hover:underline">
+                            {category.name}
+                        </h3>
+                    </Link>
+                ))}
             </div>
         </section>
     );
-};
-
-export default Categories;
+}

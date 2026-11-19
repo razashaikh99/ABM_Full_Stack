@@ -1,125 +1,75 @@
-import { aboutPageConfig } from "../../config/index";
+import Button from "../../Components/Button";
+import { Link } from "react-router-dom";
+import { aboutPageConfig, aboutValues } from "../../config";
+import Breadcrumb from "../../Components/Breadcrumb/index";
 
-const AboutUs = () => {
-    const { image } = aboutPageConfig;
-
+export default function AboutUs() {
     return (
-        <div className="bg-gray-50 min-h-screen">
-
-            <div className="bg-secondary/15 text-primary py-12 sm:py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">About Us</h1>
-
-                    <p className="text-md sm:text-xl max-w-2xl mx-auto">
-                        Get in touch with us for any questions or feedback
+        <>
+            <div className="page-width">
+                <Breadcrumb title="Our story" />
+                <div className="max-w-3xl pb-12 pt-4">
+                    <p className="eyebrow mb-5">WELCOME TO ALBAYT MART</p>
+                    <h1 className="display-title mb-6">
+                        A more considered home.
+                        <br />
+                        An easier everyday.
+                    </h1>
+                    <p className="max-w-xl text-base leading-7 sm:leading-8 text-muted">
+                        Home is where the small things matter. A morning cup. A meal made together. A space
+                        that feels like you.
                     </p>
                 </div>
             </div>
-
-            <section className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-40 py-8 sm:py-12 md:py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-
-                    <div className="relative order-2 lg:order-1">
-                        <img
-                            src={image}
-                            alt="About AlBayt Mart"
-                            className="w-full rounded-xl md:rounded-2xl shadow-lg"
-                        />
-
-                        <div className="absolute -bottom-3 -right-3 sm:-bottom-3 sm:-right-4 md:-bottom-3 md:-right-6 bg-secondary text-white px-4 py-1 sm:px-5 sm:py-1 md:px-6 md:py-1 rounded-full shadow-md">
-                            <h3 className="text-sm sm:text-base md:text-lg font-semibold">Since 2024</h3>
-                        </div>
-                    </div>
-
-                    <div className="order-1 lg:order-2">
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
-                            Welcome to AlBayt Mart
-                        </h2>
-
-                        <p className="text-gray-700 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                            AlBayt Mart is your trusted online destination for quality products at affordable prices.
-                            From groceries to lifestyle essentials, we are dedicated to making your shopping experience easy, reliable, and enjoyable.
-                        </p>
-
-                        <p className="text-gray-700 mb-6 leading-relaxed text-sm sm:text-base">
-                            Our goal is to provide our customers with convenience, value, and trust —
-                            all from the comfort of their homes. We believe in offering the best service, ensuring customer satisfaction, and building lasting relationships.
-                        </p>
+            <div className="page-width">
+                <img
+                    src={aboutPageConfig.image}
+                    alt="Natural light and everyday essentials in a welcoming kitchen"
+                    className="h-72 w-full rounded-sm object-cover sm:h-96 lg:h-[480px]"
+                />
+            </div>
+            <section className="page-width section-space grid gap-8 md:grid-cols-2 md:gap-20">
+                <h2 className="section-title max-w-sm">
+                    Useful things.
+                    <br />
+                    Thoughtfully chosen.
+                </h2>
+                <div className="space-y-5 text-sm leading-7 sm:leading-8 text-muted">
+                    <p>
+                        AlBayt Mart is an online home for kitchen and household essentials. We bring together
+                        practical products at approachable prices, helping you find the things that make daily
+                        life a little better.
+                    </p>
+                    <p>
+                        We’re drawn to the pieces you’ll reach for again and again. The ones that simplify a
+                        routine, make room on a shelf or make you look forward to being in your kitchen.
+                    </p>
+                    <p>
+                        From our home in Karachi to yours, we’re here to make shopping feel considered,
+                        straightforward and personal.
+                    </p>
+                </div>
+            </section>
+            <section className="bg-surface">
+                <div className="page-width section-space">
+                    <p className="eyebrow mb-3">WHAT WE BELIEVE</p>
+                    <h2 className="section-title mb-10">Everyday values.</h2>
+                    <div className="grid gap-8 md:grid-cols-3">
+                        {aboutValues.map((value) => (
+                            <article key={value.title} className="border-t border-primary/20 pt-6">
+                                <h3 className="mb-4 font-display text-2xl text-primary">{value.title}</h3>
+                                <p className="text-sm leading-6 sm:leading-7 text-muted">{value.description}</p>
+                            </article>
+                        ))}
                     </div>
                 </div>
             </section>
-
-            <section className="py-12 md:py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-8 md:mb-10">Our Mission & Vision</h2>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-
-                        <div className="bg-gray-100 p-6 sm:p-8 rounded-xl md:rounded-2xl shadow-md hover:shadow-lg transition">
-                            <h3 className="text-xl sm:text-2xl font-semibold text-primary mb-4">Our Mission</h3>
-
-                            <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                                To redefine online shopping by offering convenience, quality, and affordability —
-                                making AlBayt Mart the go-to platform for every household.
-                            </p>
-                        </div>
-
-                        <div className="bg-gray-100 p-6 sm:p-8 rounded-xl md:rounded-2xl shadow-md hover:shadow-lg transition">
-                            <h3 className="text-xl sm:text-2xl font-semibold text-primary mb-4">Our Vision</h3>
-
-                            <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                                To become the most trusted e-commerce brand, recognized for innovation,
-                                excellent customer service, and strong community values.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <section className="page-width py-16 text-center">
+                <h2 className="section-title mb-6">Find your next everyday favourite.</h2>
+                <Button to="/shop" >
+                    Explore the collection
+                </Button>
             </section>
-
-            <section className="container mx-auto px-4 py-12 md:py-16 text-center">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6">Our Core Values</h2>
-
-                <p className="text-gray-700 max-w-2xl mx-auto mb-10 text-sm sm:text-base">
-                    Integrity, customer focus, quality, and teamwork are at the heart of everything we do.
-                    We aim to build a shopping experience that feels personal, easy, and reliable.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 max-w-6xl mx-auto">
-                    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-                        <div className="text-secondary text-3xl mb-4">✓</div>
-
-                        <h3 className="text-lg font-semibold text-primary mb-2">Integrity</h3>
-
-                        <p className="text-gray-600 text-sm">Honest and transparent in all our dealings</p>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-                        <div className="text-secondary text-3xl mb-4">❤️</div>
-
-                        <h3 className="text-lg font-semibold text-primary mb-2">Customer Focus</h3>
-
-                        <p className="text-gray-600 text-sm">Your satisfaction is our top priority</p>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-                        <div className="text-secondary text-3xl mb-4">⭐</div>
-
-                        <h3 className="text-lg font-semibold text-primary mb-2">Quality</h3>
-
-                        <p className="text-gray-600 text-sm">Premium products with guaranteed quality</p>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-                        <div className="text-secondary text-3xl mb-4">🤝</div>
-
-                        <h3 className="text-lg font-semibold text-primary mb-2">Teamwork</h3>
-
-                        <p className="text-gray-600 text-sm">Collaborating to serve you better</p>
-                    </div>
-                </div>
-            </section>
-        </div>
+        </>
     );
-};
-
-export default AboutUs;
+}

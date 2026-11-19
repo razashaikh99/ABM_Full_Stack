@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
 import { toast } from "react-toastify";
-import { products, ratingPositions } from "../../config/index";
+import { catalogProducts as products } from "../../config/index";
 
 export default function useProductDetailsPage() {
-
     const { id } = useParams();
 
-    const product = products.find(item => item.id === id);
+    const product = products.find((item) => item.id === id);
 
     const [selection, setSelection] = useState({ id, quantity: 1 });
 
@@ -17,9 +16,6 @@ export default function useProductDetailsPage() {
     const { addToCart, openCart } = useCart();
 
     const navigate = useNavigate();
-
-    const stars = ratingPositions.map(position => ({ position,
-        type: (product?.rating || 0) >= position ? "full" : (product?.rating || 0) >= position - 0.5 ? "half" : "empty" }));
 
     const handleIncreaseQuantity = () => setSelection({ id, quantity: quantity + 1 });
 
@@ -45,11 +41,14 @@ export default function useProductDetailsPage() {
 
     return {
         product,
+        relatedProducts: products
+            .filter((item) => item.id !== id && item.category === product?.category)
+            .slice(0, 4),
+        handleRelatedAdd: addToCart,
         quantity,
-        stars,
         handleIncreaseQuantity,
         handleDecreaseQuantity,
         handleAddToCart,
-        handleBuyNow
+        handleBuyNow,
     };
 }

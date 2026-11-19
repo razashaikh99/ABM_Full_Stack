@@ -11,9 +11,10 @@ export default function useCheckoutPage() {
 
     const billingFormRef = useRef(null);
 
-    const handleChange = event => setFormData(previous => ({ ...previous, [event.target.name]: event.target.value }));
+    const handleChange = (event) =>
+        setFormData((previous) => ({ ...previous, [event.target.name]: event.target.value }));
 
-    const handleBillingSubmit = event => {
+    const handleBillingSubmit = (event) => {
         event.preventDefault();
 
         handlePlaceOrder();
@@ -31,8 +32,18 @@ export default function useCheckoutPage() {
 
         if (!billingFormRef.current?.reportValidity()) return;
 
-        if (!validateName(formData.fullName) || !validateEmail(formData.email) || !validatePhone(formData.phone) || !validateAddress(formData.address) || !formData.city.trim() || !formData.country.trim() || !formData.postalCode.trim()) {
-            toast.error("Please enter valid billing details, including your phone number and complete address.");
+        if (
+            !validateName(formData.fullName) ||
+            !validateEmail(formData.email) ||
+            !validatePhone(formData.phone) ||
+            !validateAddress(formData.address) ||
+            !formData.city.trim() ||
+            !formData.country.trim() ||
+            !formData.postalCode.trim()
+        ) {
+            toast.error(
+                "Please enter valid billing details, including your phone number and complete address."
+            );
             return;
         }
 
@@ -48,6 +59,6 @@ export default function useCheckoutPage() {
         subtotal,
         shipping,
         total,
-        handlePlaceOrder
+        handlePlaceOrder,
     };
 }

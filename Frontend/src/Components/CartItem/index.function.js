@@ -1,5 +1,4 @@
 export default function useCartItem({ item, onRemove, onQuantityChange }) {
-
     const handleDecreaseQuantity = () => onQuantityChange(item.id, item.quantity - 1);
 
     const handleIncreaseQuantity = () => onQuantityChange(item.id, item.quantity + 1);
@@ -9,6 +8,6 @@ export default function useCartItem({ item, onRemove, onQuantityChange }) {
     return {
         handleDecreaseQuantity,
         handleIncreaseQuantity,
-        handleRemove
+        handleRemove,
     };
 }

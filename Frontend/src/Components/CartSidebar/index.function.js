@@ -3,8 +3,15 @@ import { useCart } from "../../Hooks/useCart";
 import { useNavigate } from "react-router-dom";
 
 export default function useCartSidebar() {
-
-    const { cartItems, cartTotal: totalPrice, isCartOpen: isOpen, closeCart: onClose, removeFromCart, updateQuantity } = useCart();
+    const {
+        cartItems,
+        cartTotal: totalPrice,
+        isCartOpen: isOpen,
+        closeCart: onClose,
+        cartCount: itemCount,
+        removeFromCart,
+        updateQuantity,
+    } = useCart();
     const navigate = useNavigate();
 
     const closeButtonRef = useRef(null);
@@ -19,12 +26,14 @@ export default function useCartSidebar() {
 
         closeButtonRef.current?.focus();
 
-        const handleKeyDown = event => {
+        const handleKeyDown = (event) => {
             if (event.key === "Escape") onClose();
 
             if (event.key === "Tab") {
                 const dialog = closeButtonRef.current?.closest('[role="dialog"]');
-                const buttons = dialog?.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), [tabindex="0"]');
+                const buttons = dialog?.querySelectorAll(
+                    'button:not([disabled]), a[href], input:not([disabled]), [tabindex="0"]'
+                );
                 const first = buttons?.[0];
                 const last = buttons?.[buttons.length - 1];
 
@@ -57,12 +66,13 @@ export default function useCartSidebar() {
 
     return {
         cartItems,
+        itemCount,
         totalPrice,
         handleCheckout,
         isOpen,
         onClose,
         removeFromCart,
         updateQuantity,
-        closeButtonRef
+        closeButtonRef,
     };
 }

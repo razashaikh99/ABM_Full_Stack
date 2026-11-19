@@ -1,87 +1,67 @@
-import { memo } from "react";
-import { FaFilter, FaChevronDown } from "react-icons/fa";
-import clsx from "clsx";
-import { defaultShopFilters, shopCategories } from "../../../config/index";
+import Checkbox from "../../../Components/Checkbox";
+import Select from "../../../Components/Select";
+import Button from "../../../Components/Button";
+import { shopCategories, priceFilters, ratingFilters } from "../../../config";
 
-const FilterBar = ({ filters = defaultShopFilters, isOpen, handleFilterChange, toggleFilters, resetFilters }) => {
-    const { category: selectedCategory } = filters;
-
-    const categories = shopCategories;
-
+export default function FilterBar({ filters, isOpen, handleFilterChange, resetFilters }) {
     return (
-        <div className="bg-white rounded-2xl shadow-md p-4 mb-6">
-
-            <div className="flex justify-between items-center md:hidden mb-3">
-                <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                    <FaFilter /> Filters
-                </h2>
-                <button
-                    onClick={toggleFilters}
-                    className="text-gray-600 hover:text-primary transition-colors"
-                    aria-label="Toggle filters"
-                >
-                    <FaChevronDown
-                        className={clsx("transition-transform duration-200", {
-                            "rotate-180": isOpen,
-                        })}
-                    />
-                </button>
+        <div
+            id="shop-filters"
+           className={(isOpen ? "block" : "hidden") + " border-b border-line pb-6 lg:block lg:border-0"}
+        >
+            <div className="mb-7 flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-primary">Refine by</h2>
+                <Button onClick={resetFilters} variant="plain" className="text-xs text-muted underline underline-offset-4">
+                    Clear all
+                </Button>
             </div>
-
-            <div className="hidden md:flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                    <FaFilter /> Filters
-                </h2>
-                <button
-                    onClick={resetFilters}
-                    className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                    Reset All
-                </button>
-            </div>
-
-            <div
-                className={clsx("space-y-4", {
-                    "hidden md:block": !isOpen,
-                    "block": isOpen,
-                })}
-            >
-
-                <div>
-                    <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                        Category
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                        {categories.map((cat) => (
-                            <FilterButton
-                                key={cat}
-                                label={cat}
-                                isSelected={selectedCategory === cat}
-                                onClick={() => handleFilterChange("category", cat)}
-                            />
-                        ))}
-                    </div>
+            <fieldset className="mb-8">
+                <legend className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
+                    Category
+                </legend>
+                <div className="space-y-3">
+                    {shopCategories.map((category) => (
+                        <Checkbox
+                            key={category}
+                            type="radio"
+                            name="category"
+                            value={category}
+                            checked={filters.category.toLowerCase() === category.toLowerCase()}
+                            onChange={() => handleFilterChange("category", category)}
+                            label={category === "All" ? "All essentials" : category}
+                        />
+                    ))}
                 </div>
-
-            </div>
+            </fieldset>
+            <fieldset className="mb-8">
+                <legend className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
+                    Price range · PKR
+                </legend>
+                <div className="space-y-3">
+                    {priceFilters.map((price) => (
+                        <Checkbox
+                            key={price}
+                            type="radio"
+                            name="price"
+                            checked={filters.price === price}
+                            onChange={() => handleFilterChange("price", price)}
+                            label={price === "All" ? "Any price" : price}
+                        />
+                    ))}
+                </div>
+            </fieldset>
+            <Select
+                label="Customer rating"
+                id="rating"
+                value={filters.rating}
+                onChange={(event) => handleFilterChange("rating", event.target.value)}
+            >
+                {ratingFilters.map((rating) => (
+                    <option key={rating} value={rating}>
+                        {rating === "All" ? "All ratings" : rating}
+                    </option>
+                ))}
+            </Select>
         </div>
     );
-};
-
-const FilterButton = memo(({ label, isSelected, onClick }) => (
-    <button
-        onClick={onClick}
-        className={clsx(
-            "px-3 py-1 rounded-full text-sm font-medium border transition-all duration-200",
-            isSelected
-                ? "bg-primary text-white border-primary shadow-sm"
-                : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 hover:border-gray-300"
-        )}
-    >
-        {label}
-    </button>
-));
-
-FilterButton.displayName = 'FilterButton';
-
-export default memo(FilterBar);
+}

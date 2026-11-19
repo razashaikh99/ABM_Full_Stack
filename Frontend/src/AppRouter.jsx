@@ -1,3 +1,5 @@
+import MainLayout from "./Components/MainLayout/index";
+import AuthLayout from "./Components/AuthLayout/index";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/index";
 import Shop from "./Pages/Shop/index";
@@ -14,28 +16,31 @@ import LoginForm from "./Components/LoginForm/index";
 import PageNotFound from "./Pages/PageNotFound/index";
 
 const AppRouter = () => {
-  return (
-    <Routes>
+    return (
+        <Routes>
+            <Route element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/product/:id" element={<ProductDetails />} />
 
-      <Route path="/" element={<Home />} />
-      <Route path="/shop" element={<Shop />} />
-      <Route path="/product/:id" element={<ProductDetails />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-confirmation" element={<OrderConfirmation />} />
 
-      <Route path="/checkout" element={<Checkout />} />
-      <Route path="/order-confirmation" element={<OrderConfirmation />} />
-
-      <Route path="/contact" element={<ContactUs />} />
-      <Route path="/about" element={<AboutUs />} />
-      <Route path="/return-policy" element={<ReturnRefundPolicy />} />
-
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/register" element={<RegisterForm />} />
-      <Route path="/forgot" element={<ForgotPasswordForm />} />
-
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
-  );
+                <Route path="/contact" element={<ContactUs />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/return-policy" element={<ReturnRefundPolicy />} />
+            </Route>
+            <Route element={<AuthLayout />}>
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/register" element={<RegisterForm />} />
+                <Route path="/forgot" element={<ForgotPasswordForm />} />
+            </Route>
+            <Route element={<MainLayout />}>
+                <Route path="*" element={<PageNotFound />} />
+            </Route>
+        </Routes>
+    );
 };
 
 export default AppRouter;

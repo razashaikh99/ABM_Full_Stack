@@ -1,74 +1,54 @@
-import { checkoutSettings } from "../../../config/index";
+import Button from "../../../Components/Button";
+import { LockKeyhole, Info } from "lucide-react";
+import { checkoutSettings } from "../../../config";
+import { formatCurrency } from "../../../Utils/formatCurrency";
 
-const OrderSummary = ({ cartItems, subtotal, shipping, total, onPlaceOrder }) => {
-
+export default function OrderSummary({ cartItems, subtotal, shipping, total }) {
     return (
-        <div className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md p-6 mt-6 md:mt-0">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                Order Summary
-            </h2>
-
-            <div className="divide-y divide-gray-200 mb-4">
-                {cartItems.length > 0 ? (
-                    cartItems.map((item) => (
-                        <div
-                            key={item.id}
-                            className="flex items-center justify-between py-3"
-                        >
-                            <div className="flex items-center space-x-3">
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="w-14 h-14 rounded-md object-cover"
-                                />
-                                <div>
-                                    <h4 className="font-medium text-gray-800">{item.name}</h4>
-                                    <p className="text-sm text-gray-500">
-                                        Qty: {item.quantity}
-                                    </p>
-                                </div>
-                            </div>
-                            <span className="text-gray-800 font-semibold">
-                                Rs. {(item.price * item.quantity).toLocaleString()}
+        <section className="rounded-sm border border-line bg-surface p-6 sm:p-8">
+            <h2 className="mb-6 font-display text-2xl text-primary">In your bag</h2>
+            <div className="mb-6 divide-y divide-line">
+                {cartItems.map((item) => (
+                    <div key={item.id} className="flex items-center gap-4 py-4 first:pt-0">
+                        <div className="relative h-16 w-16 shrink-0 rounded-sm border border-line bg-white p-2">
+                            <img src={item.image} alt={item.name} className="h-full w-full object-contain" />
+                            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] text-white">
+                                {item.quantity}
                             </span>
                         </div>
-                    ))
-                ) : (
-                    <p className="text-gray-500 text-center py-4">
-                        Your cart is empty.
-                    </p>
-                )}
+                        <p className="min-w-0 flex-1 text-sm leading-5 sm:leading-6 text-primary">{item.name}</p>
+                        <span className="text-sm font-medium text-primary">
+                            {formatCurrency(item.price * item.quantity)}
+                        </span>
+                    </div>
+                ))}
             </div>
-
-            <div className="space-y-2 text-gray-700 border-t border-gray-200 pt-4">
+            <dl className="space-y-3 border-y border-line py-5 text-sm">
                 <div className="flex justify-between">
-                    <span>Subtotal</span>
-                    <span className="font-medium">Rs. {subtotal.toLocaleString()}</span>
+                    <dt className="text-muted">Subtotal</dt>
+                    <dd>{formatCurrency(subtotal)}</dd>
                 </div>
                 <div className="flex justify-between">
-                    <span>Shipping</span>
-                    <span className="font-medium">
-                        {shipping > 0 ? `Rs. ${shipping}` : "Free"}
-                    </span>
+                    <dt className="text-muted">Delivery</dt>
+                    <dd>{formatCurrency(shipping)}</dd>
                 </div>
-                <div className="flex justify-between text-lg font-semibold text-gray-900 border-t border-gray-200 pt-2">
-                    <span>Total</span>
-                    <span>Rs. {total.toLocaleString()}</span>
-                </div>
+            </dl>
+            <div className="my-6 flex items-baseline justify-between text-primary">
+                <span className="font-medium">
+                    Total <span className="text-xs text-muted">PKR</span>
+                </span>
+                <span className="text-xl font-semibold">{formatCurrency(total)}</span>
             </div>
-
-            <button
-                type="button"
-                disabled
-                onClick={onPlaceOrder}
-                className="w-full mt-6 bg-gray-400 text-white font-semibold py-2 rounded-lg cursor-not-allowed"
-            >
-                Place Order
-            </button>
-
-            <p className="mt-3 text-sm text-gray-600" role="status">{checkoutSettings.unavailableMessage}</p>
-        </div>
+            <div className="mb-5 flex gap-3 border-l-2 border-secondary bg-white p-4">
+                <Info size={17} className="mt-0.5 shrink-0 text-secondary" />
+                <p className="text-xs leading-5 sm:leading-6 text-muted">
+                    {checkoutSettings.unavailableMessage} No payment will be taken.
+                </p>
+            </div>
+            <Button type="button" disabled  className="w-full">
+                <LockKeyhole size={15} />
+                Place order
+            </Button>
+        </section>
     );
-};
-
-export default OrderSummary;
+}

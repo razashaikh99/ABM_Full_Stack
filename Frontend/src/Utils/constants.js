@@ -6,14 +6,7 @@ export const CURRENCY_CODE = "PKR";
 
 export const API_BASE_URL = "https://api.kitchenkart.com";
 
-export const PRODUCT_CATEGORIES = [
-    "Cookware",
-    "Bakeware",
-    "Cutlery",
-    "Storage",
-    "Appliances",
-    "Cleaning",
-];
+export const PRODUCT_CATEGORIES = ["Cookware", "Bakeware", "Cutlery", "Storage", "Appliances", "Cleaning"];
 
 export const TOAST_CONFIG = {
     position: "top-right",

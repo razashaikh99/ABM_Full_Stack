@@ -1,38 +1,29 @@
-import { homeTestimonials as testimonials } from "../../../config/index";
+import { homeTestimonials } from "../../../config";
 import { Star } from "lucide-react";
 
-const Testimonials = () => {
+export default function Testimonials() {
     return (
-        <section className="py-16 bg-orange-50">
-            <div className="container text-center max-w-7xl mx-auto px-4 md:px-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-10">
-                    What Our Customers Say
-                </h2>
-
-                <div className="grid md:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, index) => (
-                        <div
-                            key={index}
-                            className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300"
-                        >
-                            <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                                {testimonial.name}
-                            </h3>
-                            <div className="flex justify-center mb-3">
-                                {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        className="text-yellow-400 w-5 h-5 fill-yellow-400"
-                                    />
-                                ))}
+        <section className="border-t border-line bg-surface">
+            <div className="page-width section-space">
+                <p className="eyebrow mb-3 text-center">FROM HOMES LIKE YOURS</p>
+                <h2 className="section-title mb-10 text-center">Little things, well loved.</h2>
+                <div className="grid gap-10 md:grid-cols-3">
+                    {homeTestimonials.map((testimonial) => (
+                        <figure key={testimonial.name} className="border-t border-primary/20 pt-6">
+                            <div className="mb-4 flex items-center gap-2 text-secondary">
+                                <Star size={15} className="fill-secondary" />
+                                <span className="text-xs">{testimonial.rating} / 5</span>
                             </div>
-                            <p className="text-gray-600 italic">{testimonial.comment}</p>
-                        </div>
+                            <blockquote className="mb-5 font-display text-xl leading-7 sm:leading-8 text-primary">
+                                “{testimonial.comment}”
+                            </blockquote>
+                            <figcaption className="text-sm font-medium text-muted">
+                                {testimonial.name}
+                            </figcaption>
+                        </figure>
                     ))}
                 </div>
             </div>
         </section>
     );
-};
-
-export default Testimonials;
+}

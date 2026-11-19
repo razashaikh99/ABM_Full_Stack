@@ -1,5 +1,4 @@
 export default function useLoader({ fullScreen = false, size = 3 }) {
-
     const px = `${size * 16}px`;
     const spinnerStyle = {
         width: px,
@@ -12,6 +11,6 @@ export default function useLoader({ fullScreen = false, size = 3 }) {
 
     return {
         spinnerStyle,
-        wrapperClass
+        wrapperClass,
     };
 }

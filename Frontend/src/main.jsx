@@ -7,13 +7,13 @@ import { ProductProvider } from "./Context/ProductContext";
 import { CartProvider } from "./Context/CartContext";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <AuthProvider>
-      <ProductProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </ProductProvider>
-    </AuthProvider>
-  </StrictMode>
+    <StrictMode>
+        <AuthProvider>
+            <ProductProvider>
+                <CartProvider>
+                    <App />
+                </CartProvider>
+            </ProductProvider>
+        </AuthProvider>
+    </StrictMode>
 );

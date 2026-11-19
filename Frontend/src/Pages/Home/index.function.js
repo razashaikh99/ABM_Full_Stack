@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
@@ -6,6 +7,11 @@ export default function useHomePage() {
     const navigate = useNavigate();
 
     const { addToCart } = useCart();
+
+    const handleAddToCart = (product) => {
+        addToCart(product);
+        toast.success(`${product.name} added to cart!`);
+    };
 
     const heroSliderRef = useRef(null);
 
@@ -22,13 +28,13 @@ export default function useHomePage() {
     const handleArrivalsNext = () => arrivalsSliderRef.current?.slickNext();
 
     return {
-        handleAddToCart: addToCart,
+        handleAddToCart,
         handleShopNow,
         heroSliderRef,
         arrivalsSliderRef,
         handleHeroPrevious,
         handleHeroNext,
         handleArrivalsPrevious,
-        handleArrivalsNext
+        handleArrivalsNext,
     };
 }

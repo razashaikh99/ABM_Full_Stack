@@ -1,22 +1,17 @@
-import { FiPhone, FiMail } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
-const TopBar = () => {
+export default function TopBar() {
     return (
-        <div
-            className="flex items-center justify-between px-2 md:px-35 py-3 text-[12px] md:text-sm bg-accent text-foreground"
-        >
-            <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                    <FiPhone className="w-4 h-4" />
-                    <span>+92-329-8660141</span>
-                </div>
-            </div>
-            <div className="flex items-center gap-2">
-                <FiMail className="w-4 h-4" />
-                <span>info.albaytmart@gmail.com</span>
+        <div className="bg-primary text-white" data-testid="announcement">
+            <div className="page-width flex min-h-9 items-center justify-between gap-4 py-2 text-xs tracking-wide">
+                <span className="hidden sm:block">Thoughtful essentials. Everyday living.</span>
+
+                <span className="mx-auto sm:mx-0">Welcome to a more considered home.</span>
+
+                <Link to="/contact" className="hidden underline-offset-4 hover:underline sm:block">
+                    Need a hand? Get in touch
+                </Link>
             </div>
         </div>
     );
-};
-
-export default TopBar;
+}

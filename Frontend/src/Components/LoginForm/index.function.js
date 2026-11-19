@@ -6,22 +6,22 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Hooks/useAuth";
 
 export default function useLoginForm() {
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const [showPassword, setShowPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const { login } = useAuth();
 
     const validationSchema = Yup.object({
-        email: Yup.string()
-            .email("Invalid email format")
-            .required("Email is required"),
+        email: Yup.string().email("Invalid email format").required("Email is required"),
         password: Yup.string()
             .min(6, "Password must be at least 6 characters")
             .required("Password is required"),
     });
 
     const handleSubmit = async (values, { resetForm }) => {
+        setErrorMessage("");
+
         setIsSubmitting(true);
 
         try {
@@ -47,19 +47,16 @@ export default function useLoginForm() {
             resetForm();
             navigate("/");
         } catch (error) {
-            toast.error(error.message || "Login failed");
+            setErrorMessage(error.message || "Login failed. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const handleTogglePassword = () => setShowPassword(!showPassword);
-
     return {
-        showPassword,
         isSubmitting,
+        errorMessage,
         validationSchema,
         handleSubmit,
-        handleTogglePassword
     };
 }

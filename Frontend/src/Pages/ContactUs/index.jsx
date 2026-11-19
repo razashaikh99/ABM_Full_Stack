@@ -1,93 +1,42 @@
-import { Link } from "react-router-dom";
-import { contactPageConfig } from "../../config/index";
-import useContactUsPage from "./index.function";
+import { contactMapUrl } from "../../config";
+import Breadcrumb from "../../Components/Breadcrumb/index";
 import ContactForm from "./components/ContactForm";
 import ContactInfo from "./components/ContactInfo";
+import useContactUsPage from "./index.function";
 
-const ContactUs = () => {
-    const {
-        formData,
-        isSubmitting,
-        handleChange,
-        handleSubmit
-    } = useContactUsPage();
-
-    const { heading } = contactPageConfig;
+export default function ContactUs() {
+    const { formData, handleChange, handleSubmit } = useContactUsPage();
 
     return (
-        <div className="bg-gray-50 min-h-screen">
-
-            <div className="bg-secondary/15 text-primary py-12 sm:py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">{heading}</h1>
-
-                    <p className="text-md sm:text-xl max-w-2xl mx-auto">
-                        Get in touch with us for any questions or feedback
-                    </p>
-                </div>
+        <div className="page-width pb-20">
+            <Breadcrumb title="Contact us" />
+            <div className="border-b border-line pb-10 pt-4">
+                <p className="eyebrow mb-4">LET'S TALK</p>
+                <h1 className="display-title mb-5">A little help, from real people.</h1>
+                <p className="max-w-xl text-sm leading-6 sm:leading-7 text-muted">
+                    A question about a product, your account or something else? We’d love to hear from you.
+                </p>
+            </div>
+            <div className="grid gap-12 pt-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+                <ContactForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+                <ContactInfo />
             </div>
 
-            <section className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-40 py-8 sm:py-12 md:py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
-
-                    <div className="order-2 lg:order-1">
-                        <ContactForm formData={formData} isSubmitting={isSubmitting} handleChange={handleChange} handleSubmit={handleSubmit} />
-                    </div>
-
-                    <div className="order-1 lg:order-2">
-                        <ContactInfo />
-                    </div>
-                </div>
+            <section
+               className="mt-16 overflow-hidden rounded-sm border border-line"
+                aria-label="Our location"
+            >
+                <iframe
+                    title="AlBayt Mart location in North Nazimabad"
+                    src={contactMapUrl}
+                   className="h-72 w-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
+                <p className="border-t border-line bg-surface px-6 py-4 text-sm text-muted">
+                    Find us in North Nazimabad, Karachi, Pakistan.
+                </p>
             </section>
-
-            <section className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-40 pb-8 sm:pb-12 md:pb-16">
-                <div className="bg-white rounded-xl md:rounded-2xl shadow-lg overflow-hidden">
-                    <div className="p-4 sm:p-6 border-b">
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800">
-                            📍 Our Location
-                        </h3>
-                    </div>
-
-                    <div className="relative">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14469.427072907525!2d67.0575571!3d24.953973549999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb3408545e8af11%3A0xd557fabb6ac61c9!2sSakhi%20Hassan%20Block%20N%20North%20Nazimabad%20Town%2C%20Karachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1765355394898!5m2!1sen!2s"
-                        className="w-full h-64 sm:h-80 md:h-96"
-                            allowFullScreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
-
-                        <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-sm">
-                            <p className="text-sm font-medium text-gray-800">📍 North Nazimabad, Karachi, Pakistan</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div className="lg:hidden bg-white border-t">
-                <div className="container mx-auto px-4 py-6">
-                    <div className="grid grid-cols-2 gap-4">
-                        <Link reloadDocument
-                            to="tel:+923001234567"
-                            className="bg-green-50 text-green-700 p-3 rounded-lg text-center"
-                        >
-                            <div className="text-lg font-bold">📞 Call Now</div>
-
-                            <div className="text-[12px]">+92-329-8660141</div>
-                        </Link>
-
-                        <Link reloadDocument
-                            to="mailto:info.albaytmart@gmail.com"
-                            className="bg-orange-50 text-secondary p-3 rounded-lg text-center"
-                        >
-                            <div className="text-lg font-bold">📧 Email</div>
-
-                            <div className="text-[12px] truncate">info.albaytmart@gmail.com</div>
-                        </Link>
-                    </div>
-                </div>
-            </div>
         </div>
     );
-};
-
-export default ContactUs;
+}

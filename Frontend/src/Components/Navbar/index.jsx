@@ -1,216 +1,178 @@
-import useNavbar from "./index.function";
-import { logo } from "../../assets/images/index";
-
+import Input from "../Input";
+import Button from "../Button";
 import { Link, NavLink } from "react-router-dom";
-import { FiShoppingCart, FiHeart, FiUser, FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import { Search, ShoppingBag, UserRound, Menu, X } from "lucide-react";
+import { logo } from "../../assets/images";
+import { navigationLinks } from "../../config";
+import useNavbar from "./index.function";
 
-const NavItem = ({ to, children, onClick }) => (
-    <NavLink
-        to={to}
-        onClick={onClick}
-        className={({ isActive }) =>
-            `px-4 py-3 lg:py-2 rounded-lg lg:rounded-md text-sm lg:text-md font-medium transition-colors duration-200 ${isActive ? "bg-primary/10 text-secondary" : "hover:text-secondary hover:bg-gray-100"
-            }`
-        }
-    >
-        {children}
-    </NavLink>
-);
-
-const Navbar = () => {
+export default function Navbar() {
     const {
         mobileOpen,
-        isScrolled,
-        toggleCart,
         itemCount,
+        toggleCart,
         toggleMobileMenu,
         closeMobileMenu,
-        handleHomeNavigation,
-        handleAccountNavigation,
-        handleWishlistNavigation
+        search,
+        handleSearchChange,
+        handleSearchSubmit,
+        user,
+        logout,
     } = useNavbar();
 
     return (
-        <header
-            className={`sticky top-0 z-50 bg-white transition-all duration-300 ${isScrolled ? "shadow-lg" : "shadow-md"}`}
-            aria-label="Main navigation"
-        >
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="flex items-center justify-between h-16 md:h-20">
+        <header className="sticky top-0 z-40 border-b border-line bg-white" data-testid="main-header">
+            <div className="page-width flex h-20 items-center justify-between gap-5">
+                <Button
+                    variant="icon"
+                   className="menu-button lg:hidden"
+                    aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                    aria-expanded={mobileOpen}
+                    aria-controls="mobile-navigation"
+                    onClick={toggleMobileMenu}
+                >
+                    <Menu size={22} />
+                </Button>
 
-                    <div className="flex items-center">
-                        <button
-                            onClick={handleHomeNavigation}
-                            className="flex items-center gap-2"
-                            aria-label="Go to home"
+                <Link to="/" aria-label="AlBayt Mart home" className="shrink-0">
+                    <img src={logo} alt="AlBayt Mart" className="h-auto w-36 sm:w-44" />
+                </Link>
+
+                <form
+                    onSubmit={handleSearchSubmit}
+                   className="hidden w-full max-w-md items-center gap-3 border-b border-line py-2 lg:flex"
+                    role="search"
+                >
+                    <Search size={19} className="text-muted" />
+
+                    <Input variant="plain"
+                        name="q"
+                        value={search}
+                        onChange={handleSearchChange}
+                        placeholder="Find something for your home"
+                        aria-label="Search products"
+                       className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                    />
+
+                    <Button type="submit" variant="plain" className="text-xs font-semibold text-primary">
+                        Search
+                    </Button>
+                </form>
+
+                <div className="flex items-center gap-1 sm:gap-4">
+                    {user ? (
+                        <Button
+                            onClick={logout}
+                            variant="plain"
+                           className="hidden text-sm text-muted hover:text-primary sm:block"
                         >
-                            <img
-                                src={logo}
-                                alt="AlBayt Mart"
-                                className="h-8 md:h-10 w-auto object-contain"
-                            />
-                        </button>
-                    </div>
+                            Sign out
+                        </Button>
+                    ) : (
+                        <Button to="/login" variant="icon" className="hidden sm:flex" aria-label="Your account">
+                            <UserRound size={21} />
+                        </Button>
+                    )}
 
-                    <nav className="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2">
-                        <div className="flex items-center space-x-1">
-                            <NavItem to="/">Home</NavItem>
-                            <NavItem to="/shop">Shop</NavItem>
-                            <div className="relative group">
-                                <button className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium hover:text-secondary transition-colors">
-                                    Categories
-                                    <FiChevronDown className="w-4 h-4 mt-0.5 transition-transform group-hover:rotate-180" />
-                                </button>
-                                <div className="absolute top-full left-0 w-48 bg-white shadow-2xl rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                                    <NavLink to="/shop?category=all" className="block px-4 py-2 hover:bg-gray-100">All Products</NavLink>
-                                    <NavLink to="/shop?category=electronics" className="block px-4 py-2 hover:bg-gray-100">Electronics</NavLink>
-                                    <NavLink to="/shop?category=fashion" className="block px-4 py-2 hover:bg-gray-100">Fashion</NavLink>
-                                    <NavLink to="/shop?category=groceries" className="block px-4 py-2 hover:bg-gray-100">Groceries</NavLink>
-                                </div>
-                            </div>
-                            <NavItem to="/about">About</NavItem>
-                            <NavItem to="/contact">Contact</NavItem>
-                        </div>
-                    </nav>
-
-                    <div className="flex items-center gap-2 md:gap-4">
-
-                        <button
-                            onClick={handleAccountNavigation}
-                            className="hidden md:inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
-                            aria-label="Account"
-                        >
-                            <FiUser className="w-5 h-5" />
-                            <span className="hidden lg:inline text-md">Account</span>
-                        </button>
-
-                        <button
-                            onClick={handleWishlistNavigation}
-                            className="hidden md:inline-flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
-                            aria-label="Wishlist"
-                        >
-                            <FiHeart className="w-5 h-5" />
-                        </button>
-
-                        <button
-                            onClick={toggleCart}
-                            className="relative inline-flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
-                            aria-label="Open cart"
-                        >
-                            <FiShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
-                            {itemCount > 0 && (
-                                <span className="absolute -right-1 -top-1 inline-flex items-center justify-center w-5 h-5 text-xs font-bold rounded-full bg-secondary text-white">
-                                    {itemCount > 9 ? "9+" : itemCount}
-                                </span>
-                            )}
-                        </button>
-
-                        <button
-                            className="menu-button inline-flex lg:hidden items-center justify-center p-2 rounded-md hover:bg-gray-100 transition-colors"
-                            onClick={toggleMobileMenu}
-                            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                        >
-                            {mobileOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
-                        </button>
-                    </div>
+                    <Button onClick={toggleCart} variant="icon" className="relative" aria-label="Open cart">
+                        <ShoppingBag size={22} />
+                        <span className="absolute right-0 top-0 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-secondary px-1 text-[10px] font-semibold text-white">
+                            {itemCount}
+                        </span>
+                    </Button>
                 </div>
             </div>
 
-            <div className={`mobile-menu lg:hidden fixed inset-0 z-40 ${mobileOpen ? 'block' : 'hidden'}`}>
-
-                <div
-                    className={`absolute inset-0 bg-black transition-opacity duration-300 ${mobileOpen ? 'opacity-50' : 'opacity-0'}`}
-                    onClick={closeMobileMenu}
-                />
-
-                <div className={`absolute top-0 right-0 h-full w-80 max-w-full bg-white shadow-2xl transform transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                    <div className="flex items-center justify-between p-6 border-b">
-                        <button
-                            onClick={handleHomeNavigation}
-                            className="flex items-center gap-2"
+            <nav aria-label="Main navigation" className="hidden border-t border-line/70 lg:block">
+                <div className="page-width flex h-12 items-center gap-9 text-sm">
+                    {navigationLinks.map((link) => (
+                        <NavLink
+                            key={link.label}
+                            to={link.to}
+                           className="font-medium text-primary hover:text-secondary"
                         >
-                            <img
-                                src={logo}
-                                alt="AlBayt Mart"
-                                className="h-8 w-auto object-contain"
-                            />
-                        </button>
-                        <button
-                            onClick={closeMobileMenu}
-                            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                            aria-label="Close menu"
-                        >
-                            <FiX className="w-6 h-6" />
-                        </button>
-                    </div>
+                            {link.label}
+                        </NavLink>
+                    ))}
 
-                    <nav className="p-6">
-                        <div className="space-y-1">
-                            <NavItem to="/" onClick={closeMobileMenu}>Home</NavItem>
-                            <NavItem to="/shop" onClick={closeMobileMenu}>Shop</NavItem>
-                            <div className="py-6">
-                                <h3 className="px-4 py-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">
-                                    Categories
-                                </h3>
-                                <div className="pl-4 space-y-1">
-                                    <NavLink
-                                        to="/shop?category=all"
-                                        onClick={closeMobileMenu}
-                                        className={({ isActive }) => `block px-4 py-2 rounded-lg text-sm hover:bg-gray-100 ${isActive ? 'bg-primary/10 text-secondary' : ''}`}
-                                    >
-                                        All Products
-                                    </NavLink>
-                                    <NavLink
-                                        to="/shop?category=electronics"
-                                        onClick={closeMobileMenu}
-                                        className={({ isActive }) => `block px-4 py-2 rounded-lg text-sm hover:bg-gray-100 ${isActive ? 'bg-primary/10 text-secondary' : ''}`}
-                                    >
-                                        Electronics
-                                    </NavLink>
-                                    <NavLink
-                                        to="/shop?category=fashion"
-                                        onClick={closeMobileMenu}
-                                        className={({ isActive }) => `block px-4 py-2 rounded-lg text-sm hover:bg-gray-100 ${isActive ? 'bg-primary/10 text-secondary' : ''}`}
-                                    >
-                                        Fashion
-                                    </NavLink>
-                                    <NavLink
-                                        to="/shop?category=groceries"
-                                        onClick={closeMobileMenu}
-                                        className={({ isActive }) => `block px-4 py-2 rounded-lg text-sm hover:bg-gray-100 ${isActive ? 'bg-primary/10 text-secondary' : ''}`}
-                                    >
-                                        Groceries
-                                    </NavLink>
-                                </div>
-                            </div>
-                            <NavItem to="/about" onClick={closeMobileMenu}>About</NavItem>
-                            <NavItem to="/contact" onClick={closeMobileMenu}>Contact</NavItem>
+                    <span className="flex-1" />
+
+                    <Link to="/about" className="text-muted hover:text-primary">
+                        Our story
+                    </Link>
+
+                    <Link to="/contact" className="text-muted hover:text-primary">
+                        Get in touch
+                    </Link>
+                </div>
+            </nav>
+
+            {mobileOpen && (
+                <div className="mobile-menu fixed inset-0 z-50 bg-black/30 lg:hidden" id="mobile-navigation">
+                    <Button
+                        variant="plain"
+                       className="absolute inset-0"
+                        aria-label="Dismiss menu"
+                        onClick={closeMobileMenu}
+                    />
+
+                    <nav
+                       className="absolute inset-y-0 left-0 flex w-[min(86vw,360px)] flex-col bg-white p-6"
+                        aria-label="Mobile navigation"
+                    >
+                        <div className="mb-10 flex items-center justify-between">
+                            <img src={logo} alt="AlBayt Mart" className="w-36" />
+                            <Button variant="icon" aria-label="Close menu" onClick={closeMobileMenu}>
+                                <X size={22} />
+                            </Button>
                         </div>
-                    </nav>
 
-                    <div className="p-6 border-t">
-                        <div className="space-y-3">
-                            <button
-                                onClick={handleAccountNavigation}
-                                className="flex items-center gap-3 w-full px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors"
+                        <form
+                            role="search"
+                            onSubmit={handleSearchSubmit}
+                           className="mb-6 flex items-center border-b border-line pb-3"
+                        >
+                            <Input variant="plain"
+                                value={search}
+                                onChange={handleSearchChange}
+                                placeholder="Search essentials"
+                                aria-label="Search products"
+                               className="min-w-0 flex-1 text-sm outline-none"
+                            />
+                            <Button type="submit" variant="icon" aria-label="Search">
+                                <Search size={20} />
+                            </Button>
+                        </form>
+
+                        {navigationLinks.map((link) => (
+                            <Link
+                                key={link.label}
+                                to={link.to}
+                                onClick={closeMobileMenu}
+                               className="border-b border-line py-4 text-base font-medium text-primary"
                             >
-                                <FiUser className="w-5 h-5" />
-                                <span className="font-medium">Account</span>
-                            </button>
+                                {link.label}
+                            </Link>
+                        ))}
 
-                        </div>
-                    </div>
+                        <Link to="/about" onClick={closeMobileMenu} className="mt-8 text-sm text-muted">
+                            Our story
+                        </Link>
 
-                    <div className="p-6 bg-gray-50 border-t">
-                        <p className="text-sm text-gray-600 pb-2">
-                            Need help? Call us:
-                        </p>
-                        <Link reloadDocument to="tel:+923298660141" className="font-semibold text-primary hover:underline">+92-329-8660141</Link>
-                    </div>
+                        <Link to="/contact" onClick={closeMobileMenu} className="mt-5 text-sm text-muted">
+                            Contact us
+                        </Link>
+
+                        <Link
+                            to="/auth"
+                            onClick={closeMobileMenu}
+                           className="mt-auto flex items-center gap-3 pt-8 text-sm font-medium text-primary"
+                        >
+                            <UserRound size={19} /> Your account
+                        </Link>
+                    </nav>
                 </div>
-            </div>
+            )}
         </header>
     );
-};
-
-export default Navbar;
+}

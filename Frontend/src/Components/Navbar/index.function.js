@@ -1,110 +1,72 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useCart } from "../../Hooks/useCart";
+import { useAuth } from "../../Hooks/useAuth";
 
 export default function useNavbar() {
-
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
+
+    const [search, setSearch] = useState("");
+
     const { cartCount: itemCount, toggleCart } = useCart();
+
+    const { user, logout } = useAuth();
+
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    useEffect(() => {
-        if (mobileOpen) {
-            document.body.style.overflow = "hidden";
-            document.documentElement.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "auto";
-            document.documentElement.style.overflow = "auto";
-        }
-        return () => {
-            document.body.style.overflow = "auto";
-            document.documentElement.style.overflow = "auto";
-        };
-    }, [mobileOpen]);
-
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const menuButton = document.querySelector('.menu-button');
-
-            if (mobileOpen && mobileMenu && menuButton) {
-                const isClickInsideMenu = mobileMenu.contains(e.target);
-                const isClickOnButton = menuButton.contains(e.target);
-
-                if (!isClickInsideMenu && !isClickOnButton) {
-                    setMobileOpen(false);
+        if (!mobileOpen) return;
+        const previous = document.activeElement;
+        const overflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        const panel = document.getElementById("mobile-navigation");
+        const focusable = () => panel?.querySelectorAll("nav a, nav button, nav input");
+        focusable()?.[0]?.focus();
+        const onKey = (event) => {
+            if (event.key === "Escape") setMobileOpen(false);
+            const nodes = focusable();
+            if (event.key === "Tab" && nodes?.length) {
+                const first = nodes[0],
+                    last = nodes[nodes.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
                 }
             }
         };
-
-        const handleEscape = (e) => {
-            if (e.key === 'Escape' && mobileOpen) {
-                setMobileOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        document.addEventListener('touchstart', handleClickOutside);
-        document.addEventListener('keydown', handleEscape);
-
+        document.addEventListener("keydown", onKey);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-            document.removeEventListener('touchstart', handleClickOutside);
-            document.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = overflow;
+            document.removeEventListener("keydown", onKey);
+            previous?.focus();
         };
     }, [mobileOpen]);
 
-    const toggleMobileMenu = () => {
-        setMobileOpen(prev => !prev);
-    };
+    const toggleMobileMenu = () => setMobileOpen((value) => !value);
 
-    const closeMobileMenu = () => {
-        setMobileOpen(false);
-    };
+    const closeMobileMenu = () => setMobileOpen(false);
 
-    const handleHomeNavigation = () => {
-        navigate("/");
+    const handleSearchChange = (event) => setSearch(event.target.value);
 
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
         closeMobileMenu();
-    };
-
-    const handleAccountNavigation = () => {
-        navigate("/auth");
-
-        closeMobileMenu();
-    };
-
-    const handleWishlistNavigation = () => {
-        navigate("/wishlist");
-
-        closeMobileMenu();
+        navigate(search.trim() ? "/shop?q=" + encodeURIComponent(search.trim()) : "/shop");
     };
 
     return {
         mobileOpen,
-        isScrolled,
-        toggleCart,
         itemCount,
+        toggleCart,
         toggleMobileMenu,
         closeMobileMenu,
-        handleHomeNavigation,
-        handleAccountNavigation,
-        handleWishlistNavigation
+        search,
+        handleSearchChange,
+        handleSearchSubmit,
+        user,
+        logout,
     };
 }

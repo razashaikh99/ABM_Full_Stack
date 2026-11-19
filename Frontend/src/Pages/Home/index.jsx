@@ -7,7 +7,7 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import Testimonials from "./components/Testimonials";
 import Services from "./components/Services";
 
-const Home = () => {
+export default function Home() {
     const {
         handleAddToCart,
         handleShopNow,
@@ -20,7 +20,7 @@ const Home = () => {
     } = useHomePage();
 
     return (
-        <div className="bg-white">
+        <>
             <HeroSection
                 onShopNow={handleShopNow}
                 sliderRef={heroSliderRef}
@@ -28,9 +28,13 @@ const Home = () => {
                 onNext={handleHeroNext}
             />
 
+            <Services />
+
             <Categories />
 
             <FeaturedProducts onAddToCart={handleAddToCart} />
+
+            <WhyChooseUs />
 
             <NewArrivals
                 onAddToCart={handleAddToCart}
@@ -39,13 +43,7 @@ const Home = () => {
                 onNext={handleArrivalsNext}
             />
 
-            <WhyChooseUs />
-
             <Testimonials />
-
-            <Services />
-        </div>
+        </>
     );
-};
-
-export default Home;
+}

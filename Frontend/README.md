@@ -97,8 +97,12 @@ http://localhost:5173
 
 ## Notes
 
-- This frontend is currently focused on the UI and user experience.
-- Backend integration may be required for full e-commerce functionality such as real authentication, orders, and persistent cart data.
+- Shopping and informational routes share `Components/MainLayout`; `/auth`, `/login`, `/register`, and `/forgot` use a separate `AuthLayout` with no store header or footer. Desktop authentication uses a 50/50 image/form split, with a form-first layout on smaller screens.
+- Product cards, prices, ratings, quantity controls, breadcrumbs, form fields, password controls, and empty states are shared components. Static catalog and page data remain in `src/config/index.js`.
+- The product catalog is static. Cart quantities, totals, removal, and local-device persistence work without a backend. Online orders and payments remain unavailable, and checkout explains this instead of showing a simulated success.
+- Login and registration retain the existing `http://localhost:5000/api/auth` endpoints and request/response contracts. The backend must be running for live authentication. Password-reset and contact forms prepare support emails; they do not claim an email was sent automatically. Newsletter subscriptions are not enabled.
+- Search, category links, price/rating filters, and supported sort options work on the existing catalog. Newest/oldest options are omitted because the catalog has no creation dates.
+- Reduced-motion preferences, keyboard focus, accessible field labels/errors, modal cart controls, and responsive mobile navigation are supported.
 
 ## Author
 

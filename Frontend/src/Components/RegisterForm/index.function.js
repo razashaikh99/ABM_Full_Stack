@@ -6,20 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Hooks/useAuth";
 
 export default function useRegisterForm() {
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const { login } = useAuth();
 
     const validationSchema = Yup.object({
-        name: Yup.string()
-            .min(3, "Name must be at least 3 characters")
-            .required("Full name is required"),
-        email: Yup.string()
-            .email("Invalid email address")
-            .required("Email is required"),
+        name: Yup.string().min(3, "Name must be at least 3 characters").required("Full name is required"),
+        email: Yup.string().email("Invalid email address").required("Email is required"),
         password: Yup.string()
             .min(6, "Password must be at least 6 characters")
             .required("Password is required"),
@@ -29,6 +24,8 @@ export default function useRegisterForm() {
     });
 
     const handleSubmit = async (values, { resetForm }) => {
+        setErrorMessage("");
+
         setIsSubmitting(true);
 
         try {
@@ -55,23 +52,16 @@ export default function useRegisterForm() {
             resetForm();
             navigate("/");
         } catch (error) {
-            toast.error(error.message || "Registration failed");
+            setErrorMessage(error.message || "Registration failed. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const handleTogglePassword = () => setShowPassword(!showPassword);
-
-    const handleToggleConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-
     return {
-        showPassword,
-        showConfirmPassword,
         isSubmitting,
+        errorMessage,
         validationSchema,
         handleSubmit,
-        handleTogglePassword,
-        handleToggleConfirmPassword
     };
 }

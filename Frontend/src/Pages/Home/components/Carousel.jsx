@@ -1,21 +1,56 @@
+import Button from "../../../Components/Button";
 import Slider from "react-slick";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function Carousel({ children, settings, label, variant = "products", sliderRef, onPrevious, onNext }) {
-
+export default function Carousel({
+    children,
+    settings,
+    label,
+    variant = "products",
+    sliderRef,
+    onPrevious,
+    onNext,
+}) {
     return (
-        <div className={`carousel carousel-${variant} relative`} role="region" aria-roledescription="carousel" aria-label={label}>
-            <Slider ref={sliderRef} {...settings}>{children}</Slider>
-            <button type="button" onClick={onPrevious} aria-label="Previous slide"
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70">
-                <FiChevronLeft size={24} />
-            </button>
-            <button type="button" onClick={onNext} aria-label="Next slide"
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70">
-                <FiChevronRight size={24} />
-            </button>
+        <div
+           className={"carousel carousel-" + variant + " relative"}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label={label}
+        >
+            <Slider ref={sliderRef} {...settings}>
+                {children}
+            </Slider>
+
+            <div
+               className={
+                    variant === "hero"
+                        ? "absolute bottom-5 right-5 flex gap-2 sm:right-8"
+                        : "mt-5 flex justify-end gap-2"
+                }
+            >
+                <Button
+                    type="button"
+                    onClick={onPrevious}
+                    aria-label="Previous slide"
+                    variant="plain"
+                   className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-white text-primary hover:bg-surface"
+                >
+                    <ChevronLeft size={18} />
+                </Button>
+
+                <Button
+                    type="button"
+                    onClick={onNext}
+                    aria-label="Next slide"
+                    variant="plain"
+                   className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-white text-primary hover:bg-surface"
+                >
+                    <ChevronRight size={18} />
+                </Button>
+            </div>
         </div>
     );
 }

@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
 import useCheckoutPage from "./index.function";
 import BillingForm from "./components/BillingForm";
 import OrderSummary from "./components/OrderSummary";
-import { Link } from "react-router-dom";
+import Breadcrumb from "../../Components/Breadcrumb/index";
+import EmptyState from "../../Components/EmptyState/index";
 
-const Checkout = () => {
+export default function Checkout() {
     const {
         formData,
         cartItems,
@@ -13,46 +16,56 @@ const Checkout = () => {
         subtotal,
         shipping,
         total,
-        handlePlaceOrder
     } = useCheckoutPage();
 
-    if (!cartItems.length) {
+    if (!cartItems.length)
         return (
-            <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-                <h1 className="text-3xl font-bold text-primary mb-4">Your cart is empty</h1>
-
-                <Link to="/shop" className="text-secondary underline">Continue shopping</Link>
-            </div>
+            <EmptyState
+                title="Your bag is empty."
+                description="A considered home starts with a little inspiration. Find something you’ll love using every day."
+            />
         );
-    }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10">
-
-            <h1 className="text-3xl font-bold text-primary mb-8 text-center">
-                Checkout
-            </h1>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-                <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-md">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800">
-                        Billing Information
-                    </h2>
-
-                    <BillingForm formRef={billingFormRef} formData={formData} handleChange={handleChange} handleSubmit={handleBillingSubmit} />
+        <div className="page-width pb-20">
+            <Breadcrumb title="Checkout" />
+            <div className="mb-10 flex flex-wrap items-center justify-between gap-6 border-b border-line pb-8">
+                <div>
+                    <p className="eyebrow mb-3">THE NEXT LITTLE STEP</p>
+                    <h1 className="display-title">Make it yours.</h1>
                 </div>
-
-                <div className="bg-white p-6 rounded-2xl shadow-md h-fit">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800">
-                        Order Summary
-                    </h2>
-
-                    <OrderSummary cartItems={cartItems} subtotal={subtotal} shipping={shipping} total={total} onPlaceOrder={handlePlaceOrder} />
+                <Link to="/shop" className="text-link">
+                    Continue shopping
+                </Link>
+            </div>
+            <div className="grid items-start gap-12 lg:grid-cols-[1fr_420px]">
+                <div>
+                    <BillingForm
+                        formRef={billingFormRef}
+                        formData={formData}
+                        handleChange={handleChange}
+                        handleSubmit={handleBillingSubmit}
+                    />
+                    <div className="mt-10 border-t border-line pt-7">
+                        <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-primary">
+                            <ShieldCheck size={18} />
+                            Payment
+                        </h2>
+                        <p className="text-sm leading-6 sm:leading-7 text-muted">
+                            Online payments and order submission are not yet available. You can review your
+                            details and keep your bag saved for later.
+                        </p>
+                    </div>
+                </div>
+                <div className="lg:sticky lg:top-36">
+                    <OrderSummary
+                        cartItems={cartItems}
+                        subtotal={subtotal}
+                        shipping={shipping}
+                        total={total}
+                    />
                 </div>
             </div>
         </div>
     );
-};
-
-export default Checkout;
+}

@@ -1,22 +1,20 @@
 import * as Yup from "yup";
-import { toast } from "react-toastify";
 
 export default function useForgotPasswordForm() {
-
     const validationSchema = Yup.object({
-        email: Yup.string()
-            .email("Invalid email address")
-            .required("Email is required"),
+        email: Yup.string().email("Invalid email address").required("Email is required"),
     });
 
-    const handleSubmit = (values, { resetForm }) => {
-        console.log("Reset Password Request:", values);
-        toast.success("Password reset link sent to your email!");
-        resetForm();
+    const handleSubmit = (values) => {
+        window.location.href =
+            "mailto:info.albaytmart@gmail.com?subject=" +
+            encodeURIComponent("Account access help") +
+            "&body=" +
+            encodeURIComponent("Hello, I need help accessing my AlBayt Mart account: " + values.email);
     };
 
     return {
         validationSchema,
-        handleSubmit
+        handleSubmit,
     };
 }

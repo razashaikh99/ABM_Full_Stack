@@ -1,26 +1,17 @@
-import { notFoundConfig } from "../../config/index";
-import { Link } from "react-router-dom";
+import EmptyState from "../../Components/EmptyState/index";
 
 export default function PageNotFound() {
-    const { heading } = notFoundConfig;
-
     return (
-        <div className="bg-primary text-foreground flex flex-col items-center justify-center text-center px-4 py-40">
-            <h1 className="text-8xl font-extrabold mb-4 text-secondary">404</h1>
-
-            <h2 className="text-3xl font-bold mb-6 text-foreground">
-                {heading}
-            </h2>
-
-            <p className="mb-6 text-lg text-foreground">
-                The page you are looking for might have been removed or is temporarily unavailable.
+        <div className="bg-surface">
+            <p className="pt-12 text-center text-xs font-semibold tracking-widest text-secondary">
+                404 · A LITTLE OFF THE BEATEN PATH
             </p>
-
-            <Link to="/">
-                <button className="w-full flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-secondary text-white font-medium hover:bg-orange-500 transition duration-300 ease-out text-sm sm:text-base px-4 cursor-pointer">
-                    Go Back to Home
-                </button>
-            </Link>
+            <EmptyState
+                title="Let's find your way home."
+                description="The page you’re looking for isn’t here. Your next everyday favourite might be."
+                to="/"
+                action="Back to home"
+            />
         </div>
     );
 }

@@ -24,17 +24,14 @@ export const validateAddress = (address) => {
 export const validateForm = (fields) => {
     const errors = {};
 
-    if ("email" in fields && !validateEmail(fields.email))
-        errors.email = "Invalid email format";
+    if ("email" in fields && !validateEmail(fields.email)) errors.email = "Invalid email format";
 
     if ("password" in fields && !validatePassword(fields.password))
         errors.password = "Password must be 6+ chars, include uppercase, lowercase & number";
 
-    if ("name" in fields && !validateName(fields.name))
-        errors.name = "Name must be at least 3 characters";
+    if ("name" in fields && !validateName(fields.name)) errors.name = "Name must be at least 3 characters";
 
-    if ("phone" in fields && !validatePhone(fields.phone))
-        errors.phone = "Invalid phone number";
+    if ("phone" in fields && !validatePhone(fields.phone)) errors.phone = "Invalid phone number";
 
     if ("address" in fields && !validateAddress(fields.address))
         errors.address = "Address must be at least 10 characters";

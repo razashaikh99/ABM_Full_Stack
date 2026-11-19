@@ -1,90 +1,49 @@
-import { FaPaperPlane } from "react-icons/fa";
+import Button from "../../../Components/Button";
+import FormField from "../../../Components/FormField/index";
+import { contactFields } from "../../../config";
 
-const ContactForm = ({ formData, isSubmitting, handleChange, handleSubmit }) => {
-
+export default function ContactForm({ formData, handleChange, handleSubmit }) {
     return (
-        <div className="bg-white shadow-lg rounded-xl md:rounded-2xl p-6 sm:p-8 h-full">
-            <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-4 sm:mb-6">
-                Send Us a Message
-            </h2>
-
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                    <div>
-                        <label className="block text-gray-700 mb-2 text-sm sm:text-base">
-                            Full Name *
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            placeholder="Your Name"
-                            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-sm sm:text-base"
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-gray-700 mb-2 text-sm sm:text-base">
-                            Email Address *
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder="you@example.com"
-                            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-sm sm:text-base"
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <label className="block text-gray-700 mb-2 text-sm sm:text-base">
-                        Subject
-                    </label>
-                    <input
-                        type="text"
-                        name="subject"
-                        value={formData.subject}
+        <div>
+            <h2 className="mb-3 font-display text-3xl text-primary">A conversation starts here.</h2>
+            <p className="mb-7 text-sm leading-6 sm:leading-7 text-muted">
+                Tell us what’s on your mind. This form prepares an email in your preferred email app.
+            </p>
+            <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
+                {contactFields.map((field) => (
+                    <FormField
+                        key={field.name}
+                        name={field.name}
+                        label={field.label}
+                        type={field.type || "text"}
+                        autoComplete={field.autoComplete}
+                        placeholder={field.placeholder}
+                        value={formData[field.name]}
                         onChange={handleChange}
-                        placeholder="Subject of your message"
-                        className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-sm sm:text-base"
+                        required={!field.optional}
+                       className={field.name === "subject" ? "sm:col-span-2" : ""}
                     />
+                ))}
+                <FormField
+                    name="message"
+                    label="Your message"
+                    as="textarea"
+                    rows={5}
+                    placeholder="A product question, an idea, or just a hello…"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                   className="sm:col-span-2"
+                />
+                <div className="sm:col-span-2">
+                    <Button type="submit" >
+                        Prepare email
+                    </Button>
+                    <p className="mt-4 text-xs leading-5 text-muted">
+                        Nothing is sent until you send it from your email app.
+                    </p>
                 </div>
-
-                <div>
-                    <label className="block text-gray-700 mb-2 text-sm sm:text-base">
-                        Message *
-                    </label>
-                    <textarea
-                        name="message"
-                        rows="4"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Write your message here..."
-                        className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent resize-none text-sm sm:text-base"
-                        required
-                    ></textarea>
-                </div>
-
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto bg-secondary text-white font-medium px-6 py-3 rounded-lg hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <FaPaperPlane className="text-sm" />
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                </button>
-
-                <p className="text-gray-500 text-xs sm:text-sm mt-4">
-                    * Required fields. We'll respond to your message within 24 hours.
-                </p>
             </form>
         </div>
     );
-};
-
-export default ContactForm;
+}

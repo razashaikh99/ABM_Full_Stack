@@ -1,50 +1,60 @@
-import { heroCarouselSettings, heroSlides as slides } from "../../../config/index";
+import Button from "../../../Components/Button";
+import { Link } from "react-router-dom";
+import { heroSlides, heroCarouselSettings } from "../../../config";
 import Carousel from "./Carousel";
-import { motion as Motion } from "framer-motion";
 
-const HeroSection = ({ onShopNow, sliderRef, onPrevious, onNext }) => {
-
+export default function HeroSection({ onShopNow, sliderRef, onPrevious, onNext }) {
     return (
-        <section className="relative w-full overflow-hidden">
-            <Carousel settings={heroCarouselSettings} label="Featured offers" variant="hero"
-                sliderRef={sliderRef} onPrevious={onPrevious} onNext={onNext}>
-                {slides.map((slide) => (
-                    <div key={slide.id} className="relative w-full h-[75vh] md:h-[90vh]">
-                        <img
-                            src={slide.image}
-                            alt={slide.title}
-                            className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4 md:px-8 text-shadow-lg/20">
-                            <Motion.h2
-                                initial={{ y: 50, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ duration: 0.8 }}
-                                className="text-3xl md:text-6xl font-bold text-white mb-4"
-                            >
-                                {slide.title}
-                            </Motion.h2>
-                            <Motion.p
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.3, duration: 0.8 }}
-                                className="text-lg md:text-2xl text-gray-200 mb-6"
-                            >
-                                {slide.subtitle}
-                            </Motion.p>
-                            <Motion.button onClick={onShopNow}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-100 transition"
-                            >
-                                {slide.btnText}
-                            </Motion.button>
+        <section className="bg-surface">
+            <Carousel
+                settings={heroCarouselSettings}
+                label="Thoughtfully chosen for your home"
+                variant="hero"
+                sliderRef={sliderRef}
+                onPrevious={onPrevious}
+                onNext={onNext}
+            >
+                {heroSlides.map((slide) => (
+                    <div key={slide.id}>
+                        <div className="mx-auto grid max-w-[1600px] md:min-h-[550px] md:grid-cols-2 lg:min-h-[580px]">
+                            <div className="flex flex-col justify-center px-5 pb-16 pt-12 sm:px-8 md:pb-20 md:pl-12 md:pr-10 lg:pl-[max(48px,calc((100vw-1224px)/2))]">
+                                <p className="eyebrow mb-6">THE EVERYDAY, BEAUTIFULLY CONSIDERED</p>
+
+                                <h1 className="mb-6 max-w-lg font-display text-[46px] leading-[1.04] tracking-[-0.045em] text-primary sm:text-6xl lg:text-[72px]">
+                                    {slide.title}
+                                </h1>
+
+                                <p className="mb-8 max-w-sm text-sm leading-6 sm:leading-7 text-muted sm:text-base">
+                                    {slide.subtitle}
+                                </p>
+
+                                <div className="flex flex-wrap items-center gap-6">
+                                    <Button onClick={onShopNow} >
+                                        Explore the collection
+                                    </Button>
+                                    <Link to="/about" className="text-link">
+                                        Our story
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="relative min-h-72 md:min-h-full">
+                                <img
+                                    src={slide.image}
+                                    alt="A welcoming kitchen with thoughtfully arranged everyday essentials"
+                                    fetchPriority={slide.id === 1 ? "high" : "auto"}
+                                   className="absolute inset-0 h-full w-full object-cover"
+                                />
+                                <div className="absolute bottom-6 left-6 border-l-2 border-white pl-4 text-sm font-medium leading-5 sm:leading-6 text-white [text-shadow:0_1px_8px_#000]">
+                                    For the moments
+                                    <br />
+                                    that make a home.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}
             </Carousel>
         </section>
     );
-};
-
-export default HeroSection;
+}

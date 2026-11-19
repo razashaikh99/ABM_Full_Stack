@@ -1,126 +1,87 @@
+import Button from "../Button";
+import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
+import FormField from "../FormField/index";
+import PasswordField from "../PasswordField/index";
+import { registerFormDefaults } from "../../config";
 import useRegisterForm from "./index.function";
-import { registerFormDefaults } from "../../config/index";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-
-const RegisterForm = () => {
-    const {
-        showPassword,
-        showConfirmPassword,
-        isSubmitting,
-        validationSchema,
-        handleSubmit,
-        handleTogglePassword,
-        handleToggleConfirmPassword
-    } = useRegisterForm();
+export default function RegisterForm() {
+    const { isSubmitting, validationSchema, handleSubmit, errorMessage } = useRegisterForm();
 
     return (
-        <div className="max-w-xl mx-3 lg:mx-auto bg-foreground rounded-2xl shadow-lg py-8 px-6 my-15">
-            <h2 className="text-2xl font-semibold text-primary text-center mb-6">
-                Create Your Account 🛒
-            </h2>
+        <div>
+            <p className="eyebrow mb-4">MAKE YOURSELF AT HOME</p>
+
+            <h1 className="auth-heading">A little more you.</h1>
+
+            <p className="auth-description">Create your account and make space for everyday favourites.</p>
+
+            {errorMessage && (
+                <div
+                   className="mb-6 border-l-2 border-red-600 bg-red-50 p-4 text-sm text-red-800"
+                    role="alert"
+                >
+                    {errorMessage}
+                </div>
+            )}
 
             <Formik
                 initialValues={registerFormDefaults}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                <Form className="space-y-5">
+                <Form className="space-y-4" noValidate>
+                    <Field
+                        name="name"
+                        label="Full name"
+                        autoComplete="name"
+                        placeholder="Your full name"
+                        component={FormField}
+                    />
 
-                    <div>
-                        <label className="block text-accent mb-1">Full Name</label>
-                        <Field
-                            type="text"
-                            name="name"
-                            placeholder="Enter your full name"
-                            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-secondary"
-                        />
-                        <ErrorMessage
-                            name="name"
-                            component="p"
-                            className="text-red-500 text-sm mt-1"
-                        />
-                    </div>
+                    <Field
+                        name="email"
+                        label="Email address"
+                        type="email"
+                        autoComplete="email"
+                        placeholder="you@example.com"
+                        component={FormField}
+                    />
 
-                    <div>
-                        <label className="block text-accent mb-1">Email Address</label>
-                        <Field
-                            type="email"
-                            name="email"
-                            placeholder="you@example.com"
-                            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-secondary"
-                        />
-                        <ErrorMessage
-                            name="email"
-                            component="p"
-                            className="text-red-500 text-sm mt-1"
-                        />
-                    </div>
+                    <Field
+                        name="password"
+                        label="Password"
+                        autoComplete="new-password"
+                        placeholder="At least 6 characters"
+                        component={PasswordField}
+                    />
 
-                    <div className="relative">
-                        <label className="block text-accent mb-1">Password</label>
-                        <Field
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            placeholder="Enter password"
-                            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-secondary pr-10"
-                        />
-                        <button
-                            type="button"
-                            className="absolute right-3 top-11 text-gray-500"
-                            onClick={handleTogglePassword}
-                        >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
-                        <ErrorMessage
-                            name="password"
-                            component="p"
-                            className="text-red-500 text-sm mt-1"
-                        />
-                    </div>
+                    <Field
+                        name="confirmPassword"
+                        label="Confirm password"
+                        autoComplete="new-password"
+                        placeholder="Re-enter your password"
+                        component={PasswordField}
+                    />
 
-                    <div className="relative">
-                        <label className="block text-accent mb-1">Confirm Password</label>
-                        <Field
-                            type={showConfirmPassword ? "text" : "password"}
-                            name="confirmPassword"
-                            placeholder="Re-enter your password"
-                            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-secondary pr-10"
-                        />
-                        <button
-                            type="button"
-                            className="absolute right-3 top-11 text-gray-500"
-                            onClick={handleToggleConfirmPassword}
-                        >
-                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
-                        <ErrorMessage
-                            name="confirmPassword"
-                            component="p"
-                            className="text-red-500 text-sm mt-1"
-                        />
-                    </div>
-
-                    <button
+                    <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-secondary text-foreground py-3 rounded-lg font-medium hover:bg-primary transition-all cursor-pointer disabled:opacity-70"
+                        aria-busy={isSubmitting}
+                        className="w-full"
                     >
-                        {isSubmitting ? "Creating Account..." : "Create Account"}
-                    </button>
+                        {isSubmitting ? "Creating your account…" : "Create account"}
+                    </Button>
                 </Form>
             </Formik>
 
-            <p className="text-center text-sm mt-6 text-accent">
-                Already have an account?{" "}
-                <Link to="/login" className="text-secondary font-medium hover:underline">
-                    Login
+            <p className="mt-7 text-center text-sm text-muted">
+                Already part of the family?{" "}
+                <Link to="/login" className="font-semibold text-primary underline underline-offset-4">
+                    Sign in
                 </Link>
             </p>
         </div>
     );
-};
-
-export default RegisterForm;
+}

@@ -1,39 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
-import { contactFormDefaults } from "../../config/index";
+import { contactFormDefaults } from "../../config";
+import { validateEmail } from "../../Utils/validations";
 
 export default function useContactUsPage() {
     const [formData, setFormData] = useState(contactFormDefaults);
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const handleChange = (event) =>
+        setFormData((previous) => ({ ...previous, [event.target.name]: event.target.value }));
 
-    const timerRef = useRef(null);
-
-    useEffect(() => () => clearTimeout(timerRef.current), []);
-
-    const handleChange = event => setFormData(previous => ({ ...previous, [event.target.name]: event.target.value }));
-
-    const handleSubmit = event => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-
-        if (!formData.name || !formData.email || !formData.message) {
-            toast.error("Please fill out all required fields!");
+        if (!formData.name.trim() || !validateEmail(formData.email) || !formData.message.trim()) {
+            toast.error("Please add your name, a valid email and your message.");
             return;
         }
-
-        setIsSubmitting(true);
-
-        timerRef.current = setTimeout(() => {
-            toast.success("Message sent successfully!");
-            setFormData(contactFormDefaults);
-            setIsSubmitting(false);
-        }, 1000);
+        const subject = formData.subject.trim() || "A question for AlBayt Mart";
+        const body = "From: " + formData.name + " (" + formData.email + ")\n\n" + formData.message;
+        window.location.href =
+            "mailto:info.albaytmart@gmail.com?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body);
     };
 
-    return {
-        formData,
-        isSubmitting,
-        handleChange,
-        handleSubmit
-    };
+    return { formData, handleChange, handleSubmit };
 }

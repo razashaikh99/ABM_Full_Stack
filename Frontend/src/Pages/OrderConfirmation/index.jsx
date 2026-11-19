@@ -1,75 +1,48 @@
-import { orderConfirmationConfig } from "../../config/index";
-import useOrderConfirmationPage from "./index.function";
+import Button from "../../Components/Button";
 import { Link } from "react-router-dom";
-
-import { FaCheckCircle } from "react-icons/fa";
+import { Check } from "lucide-react";
+import EmptyState from "../../Components/EmptyState/index";
 import { formatCurrency } from "../../Utils/formatCurrency";
+import useOrderConfirmationPage from "./index.function";
 
-const OrderConfirmation = () => {
-    const {
-        order,
-        total
-    } = useOrderConfirmationPage();
+export default function OrderConfirmation() {
+    const { order, total } = useOrderConfirmationPage();
 
-    const { heading } = orderConfirmationConfig;
-
-    if (!order) {
+    if (!order)
         return (
-            <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-                <h1 className="text-3xl font-bold text-primary mb-4">No order found</h1>
-
-                <Link to="/shop" className="text-secondary underline">Continue shopping</Link>
-            </div>
+            <EmptyState
+                title="No order to show just yet."
+                description="You haven’t placed an order in this session. Browse the collection or review the essentials saved in your bag."
+            />
         );
-    }
-
-    const { items } = order;
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10">
-            <div className="bg-white shadow-lg rounded-2xl p-8 max-w-lg w-full text-center">
-
-                <div className="flex justify-center mb-6">
-                    <FaCheckCircle className="text-green-500 text-6xl" />
+        <div className="page-width py-16">
+            <div className="mx-auto max-w-xl text-center">
+                <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-surface text-primary">
+                    <Check size={25} />
                 </div>
-
-                <h1 className="text-3xl font-bold text-primary mb-2">
-                    {heading}
-                </h1>
-
-                <p className="text-gray-600 mb-6">
-                    Your order has been successfully placed. You’ll receive a confirmation
-                    email shortly with your order details.
-                </p>
-
-                <div className="bg-gray-100 rounded-xl p-5 text-left mb-6">
-                    <h2 className="font-semibold text-lg mb-3">Order Summary</h2>
-
-                    <ul className="space-y-2 text-gray-700">
-                        {items.map(item => (
-                            <li key={item.id} className="flex justify-between">
-                                <span>{item.name}{item.quantity > 1 && ` (x${item.quantity})`}</span>
-
-                                <span>{formatCurrency(item.price * item.quantity)}</span>
-                            </li>
-                        ))}
-                        <li className="flex justify-between font-semibold border-t pt-2">
-                            <span>Total</span>
-
-                            <span>{total}</span>
-                        </li>
-                    </ul>
+                <p className="eyebrow mb-4">THANK YOU FOR CHOOSING ALBAYT</p>
+                <h1 className="display-title mb-5">Good things are on their way.</h1>
+                <p className="mb-8 text-sm leading-6 sm:leading-7 text-muted">Your order reference is {order.id}.</p>
+                <div className="mb-8 border-y border-line py-6 text-left">
+                    {order.items.map((item) => (
+                        <div key={item.id} className="flex justify-between gap-5 py-3 text-sm">
+                            <span>
+                                {item.name} × {item.quantity}
+                            </span>
+                            <span>{formatCurrency(item.price * item.quantity)}</span>
+                        </div>
+                    ))}
+                    <div className="mt-4 flex justify-between border-t border-line pt-5 font-semibold text-primary">
+                        <span>Total</span>
+                        <span>{total}</span>
+                    </div>
                 </div>
-
-                <Link
-                    to="/shop"
-                    className="inline-block bg-secondary hover:bg-orange-600 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300"
-                >
-                    Continue Shopping
-                </Link>
+                <Button to="/shop" >
+                    Continue shopping
+                </Button>
             </div>
         </div>
     );
-};
-
-export default OrderConfirmation;
+}
