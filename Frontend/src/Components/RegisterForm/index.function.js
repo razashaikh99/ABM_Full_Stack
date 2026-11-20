@@ -1,53 +1,26 @@
-import * as Yup from "yup";
 import { useState } from "react";
-
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
+import { registerUser } from "../../Redux/actions/auth-action";
+import { registerValidationSchema } from "../../validations_schemas/auth-validation-schema";
 
 export default function useRegisterForm() {
     const [errorMessage, setErrorMessage] = useState("");
-
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { login } = useAuth();
-
-    const validationSchema = Yup.object({
-        name: Yup.string().min(3, "Name must be at least 3 characters").required("Full name is required"),
-        email: Yup.string().email("Invalid email address").required("Email is required"),
-        password: Yup.string()
-            .min(6, "Password must be at least 6 characters")
-            .required("Password is required"),
-        confirmPassword: Yup.string()
-            .oneOf([Yup.ref("password"), null], "Passwords must match")
-            .required("Please confirm your password"),
-    });
 
     const handleSubmit = async (values, { resetForm }) => {
         setErrorMessage("");
-
         setIsSubmitting(true);
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: values.name,
-                    email: values.email,
-                    password: values.password,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || "Registration failed");
-            }
-
-            login(data.user, data.token);
+            await dispatch(registerUser({
+                name: values.name,
+                email: values.email,
+                password: values.password
+            }));
             toast.success("Account created successfully!");
             resetForm();
             navigate("/");
@@ -61,7 +34,7 @@ export default function useRegisterForm() {
     return {
         isSubmitting,
         errorMessage,
-        validationSchema,
+        validationSchema: registerValidationSchema,
         handleSubmit,
     };
 }
