@@ -38,7 +38,7 @@ Frontend/
 │   │   └── <Component>/    # One folder per global component
 │   │       ├── index.jsx          # UI
 │   │       └── index.function.js  # Component logic
-│   ├── Context/             # React context providers for auth, cart, and products
+│   ├── Redux/               # Redux Toolkit store, auth/cart slices, and storage persistence
 │   ├── config/              # Static datasets, page defaults, and carousel settings
 │   ├── Hooks/               # Custom hooks like useCart
 │   ├── Pages/               # Each page has its own folder
@@ -98,7 +98,7 @@ http://localhost:5173
 ## Notes
 
 - Shopping and informational routes share `Components/MainLayout`; `/auth`, `/login`, `/register`, and `/forgot` use a separate `AuthLayout` with no store header or footer. Desktop authentication uses a 50/50 image/form split, with a form-first layout on smaller screens.
-- Product cards, prices, ratings, quantity controls, breadcrumbs, form fields, password controls, and empty states are shared components. Static catalog and page data remain in `src/config/index.js`.
+- Product cards, prices, ratings, quantity controls, breadcrumbs, form fields, password controls, and empty states are shared components. Auth and cart state use Redux Toolkit through shared hooks; localStorage keeps the existing session/cart keys. Static catalog and page data remain in `src/config/index.js`.
 - The product catalog is static. Cart quantities, totals, removal, and local-device persistence work without a backend. Online orders and payments remain unavailable, and checkout explains this instead of showing a simulated success.
 - Login and registration retain the existing `http://localhost:5000/api/auth` endpoints and request/response contracts. The backend must be running for live authentication. Password-reset and contact forms prepare support emails; they do not claim an email was sent automatically. Newsletter subscriptions are not enabled.
 - Search, category links, price/rating filters, and supported sort options work on the existing catalog. Newest/oldest options are omitted because the catalog has no creation dates.

@@ -2,8 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { useCart } from "../../Hooks/useCart";
 import { toast } from "react-toastify";
-import { useProducts } from "../../Hooks/useProducts";
-import { defaultShopFilters, shopSettings } from "../../config/index";
+import { catalogProducts as allProducts, defaultShopFilters, shopSettings } from "../../config/index";
 
 export default function useShopPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -19,8 +18,6 @@ export default function useShopPage() {
 
         toast.success(`${product.name} added to cart!`);
     };
-
-    const { allProducts } = useProducts();
 
     const [sortOption, setSortOption] = useState(shopSettings.defaultSort);
 
@@ -67,7 +64,7 @@ export default function useShopPage() {
             default:
                 return filtered;
         }
-    }, [allProducts, activeFilters, sortOption, query]);
+    }, [activeFilters, sortOption, query]);
 
     const displayedProducts = matchingProducts.slice(0, currentPage * shopSettings.productsPerPage);
 

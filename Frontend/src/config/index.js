@@ -512,3 +512,9 @@ export const buttonVariants = {
     icon: "icon-button",
     plain: "",
 };
+
+export const authDefaults = { user: null, token: null };
+
+export const cartDefaults = { cartItems: [], isCartOpen: false };
+
+export const storageKeys = { user: "user", token: "token", cart: "kk_cart_items" };

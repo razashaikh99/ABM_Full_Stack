@@ -1,19 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
 import App from "./App";
-
-import { AuthProvider } from "./Context/AuthContext";
-import { ProductProvider } from "./Context/ProductContext";
-import { CartProvider } from "./Context/CartContext";
+import store from "./Redux/store";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <AuthProvider>
-            <ProductProvider>
-                <CartProvider>
-                    <App />
-                </CartProvider>
-            </ProductProvider>
-        </AuthProvider>
+        <Provider store={store}>
+            <App />
+        </Provider>
     </StrictMode>
 );
